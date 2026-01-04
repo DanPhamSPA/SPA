@@ -1,0 +1,270 @@
+import streamlit as st
+from openpyxl import load_workbook
+from io import BytesIO
+from engine_lib import load_aircraft_dict, save_aircraft_dict, terminate_list
+
+from openpyxl import load_workbook
+from engine_lib import addNewEngine, getEngine, getAircraft, editExcel, getCell, addSchedule, getTail, rangeSchedule
+from engine_lib import PlanShopDate, PlanSchedule, row_for, cleanSchedule
+from ExcelRule import RedFillCell, configureFormat
+from datetime import datetime, timedelta
+import os
+
+
+
+
+
+st.set_page_config(page_title="Engine Fleet Staggering", layout="wide")
+st.title("Engine Fleet Staggering – Scheduler UI")
+
+uploaded = st.file_uploader("Upload Excel (.xlsx/.xlsm)", type=["xlsx", "xlsm"])
+
+if uploaded: #Uploaded excel file update
+    if "excel_bytes" not in st.session_state or st.session_state.get("upload_name") != uploaded.name:
+        st.session_state.excel_bytes = uploaded.getvalue()
+        st.session_state.upload_name = uploaded.name    
+
+        raw = load_aircraft_dict()
+        st.session_state.ListAirCraft = {int(k): v for k, v in raw.items()}
+
+        #st.session_state.ListAirCraft = load_aircraft_dict()   # optional reset on new file
+
+    wb = load_workbook(BytesIO(st.session_state.excel_bytes),
+                       keep_vba=uploaded.name.endswith(".xlsm"))
+
+    sheet = st.selectbox("Select sheet", wb.sheetnames)
+    ws = wb[sheet]
+
+    #if "ListAirCraft" not in st.session_state:
+        #st.session_state.ListAirCraft = {} 
+    listShort = st.session_state.ListAirCraft
+
+    st.subheader("Add / Plan Schedule")
+    #add dropped downoption
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        msn = st.number_input("MSN", min_value=0, step=1)
+        eng = st.selectbox("Engine", ["Eng1", "Eng2"])
+    with col2:
+        year = st.number_input("Operation start year", min_value=2020, max_value=2100, step=1, value=2026)
+        month = st.number_input("Operation start month", min_value=1, max_value=12, step=1, value=1)
+    with col3:
+        cycle_plan = st.number_input("CyclePlan", min_value=0, step=50, value=300)
+        avg_cycle = st.number_input("Average cycles/month", min_value=1, step=1, value=300)
+    with col4:
+        subEntry = st.selectbox("Edit Option", ["None", "None"])
+    # Example action buttons
+    b1, b2, = st.columns(2)
+   
+    with b1: #write schedule
+        if st.button("Add Aircraft"):
+
+           
+            # e.g. writeSchedule(month, year, cycle_plan, ws, msn, eng, ListAirCraft)
+            address = getTail(st.session_state.ListAirCraft)
+            TailAdd = msn
+
+            newEntry = addNewEngine(TailAdd, "Eng1", "Eng2") 
+            st.session_state.ListAirCraft.update(newEntry)
+            save_aircraft_dict(st.session_state.ListAirCraft)
+            
+
+            #print(ListAirCraft)
+            print(str(address) + "Added New")
+
+            editExcel(address, newEntry, TailAdd, ws, st.session_state.ListAirCraft, subEntry)
+            #st.write("Updated aircraft dict:", st.session_state.ListAirCraft)
+
+            #Updated file 
+            
+            
+            out = BytesIO()
+            wb.save(out)
+            
+            out.seek(0)
+            st.success("MSN " + str(msn) + " Successfully added")
+            st.session_state.excel_bytes = out.getvalue()
+            #st.write("Updated file size (bytes):", len(st.session_state.updated_excel)) 
+           
+            #print("Succesful")
+            
+
+
+    with b2:
+        if st.button("Clean aircraft list"):
+            terminate_list()
+            st.session_state.ListAirCraft = {} ##Key 
+
+            st.success("Successfully clean aircraft list")
+
+
+        out = BytesIO()
+        wb.save(out)
+        
+        out.seek(0)
+        #st.success("MSN " + str(msn) + " Successfully added")
+        st.session_state.excel_bytes = out.getvalue()
+
+
+    st.write("")
+    st.write("")
+    
+    #MSN control
+
+
+    msn_list = list(st.session_state.ListAirCraft.keys())
+    col5, col6 = st.columns(2)
+
+
+
+
+
+    #Schuedule options
+    col12, col22, = st.columns(2)
+    
+   
+
+    with col5:
+        selected_msn = st.selectbox(
+        "Select MSN",
+         options=msn_list,
+        index=0 if msn_list else None
+        )
+
+        #st.success("Plan applied (replace TODO with your function).")
+    
+    with col6:
+        msnControl1 = st.selectbox("Schedule Option", ["30000", "40000"])
+        #if msnControl1 == "30000":
+        #   st.success("Plan applied (replace TODO with your function).")
+
+    b3, b4  = st.columns(2)
+    with col12:
+        subEntry = st.selectbox("Schedule Option", ["Single", "Automatic"])
+        
+        if subEntry == "Automatic":
+
+            optionS, optionE  = st.columns(2)
+            with optionS:
+
+                with st.popover("Set automatic start"): #Hover option
+
+                    yearS = st.number_input("Start Year", min_value=2020, max_value=2100, step=1, value=2025)
+                    monthS = st.number_input("Start Month", min_value=1, max_value=12, step=1, value=1)
+
+            with optionE:
+
+                with st.popover("Set automatic end"): #Hover option
+
+                    yearE = st.number_input("End Year", min_value=2020, max_value=2100, step=1, value=2025)
+                    monthE = st.number_input("End Month", min_value=1, max_value=12, step=1, value=1)
+
+                
+    with col22:
+        CleanAmount = st.number_input("Clean Schedule", min_value=1, max_value=12, step=1, value=1)
+
+
+    with b3: 
+        if st.button("Add Schedule"):
+
+            if (subEntry == "Single"):
+
+                addSchedule(selected_msn, ws, listShort, cycle_plan, month, year, eng)
+
+                st.success("Single Mode updated")
+
+            if (subEntry == "Automatic"):
+                
+               
+                rangeSchedule(selected_msn, monthS, yearS, monthE, yearE, listShort, ws, cycle_plan, eng) 
+
+                st.success("Automatic Mode updated")
+
+
+
+            #st.success("Plan applied (replace TODO with your function).")
+        
+    
+        out = BytesIO()
+        wb.save(out)
+        
+        out.seek(0)
+        #st.success("MSN " + str(msn) + " Successfully added")
+        st.session_state.excel_bytes = out.getvalue()
+    
+    
+    
+
+    
+    # Download result
+    with b4: 
+        if st.button("Clean Schedule"):
+            st.success("Plan applied (replace TODO with your function).")
+        
+    
+
+    st.write("")
+    st.write("")
+
+
+    col9, col10, = st.columns(2)
+    #Button stagging
+    st1, st2  = st.columns(2)
+    with col9:
+
+        OptionStagging = st.selectbox("Stagging Option", ["Automatic", "Manual"])
+
+        if OptionStagging == "Manual":
+
+            Stagging,  = st.columns(1)
+
+            with Stagging:
+
+                with st.popover("Set Manual start"): #Hover option
+
+                    StaggingYear = st.number_input("Start Year Stagging", min_value=2020, max_value=2100, step=1, value=2025)
+                    StaggingMonth = st.number_input("Start Month Stagging", min_value=1, max_value=12, step=1, value=1)
+
+
+
+    with col10:
+        CleanStagging = st.selectbox("Cleaning Option", ["Manual", "Automatic"])
+
+    with st1: 
+        if st.button("Engine Stagging"):
+            if OptionStagging == "Automatic":
+                PlanSchedule(selected_msn, ws, listShort, avg_cycle, eng)
+                st.success("Automatic Stagging mode updated")
+            if OptionStagging == "Manual":
+                PlanShopDate(selected_msn, 6, StaggingMonth, StaggingYear, listShort, ws, eng)
+                st.success("Manual Stagging mode updated")
+
+
+        out = BytesIO()
+        wb.save(out)
+        
+        out.seek(0)
+        #st.success("MSN " + str(msn) + " Successfully added")
+        st.session_state.excel_bytes = out.getvalue()
+    
+    st.write("")
+    st.write("")
+    ## Download output documents 
+    download_bytes = st.session_state.get("updated_excel")
+
+    if download_bytes is None:
+        out = BytesIO()
+        wb.save(out)
+        out.seek(0)
+        download_bytes = out.getvalue()
+    
+    st.download_button(
+        label="Download updated Excel",
+        data=download_bytes,
+        file_name="engine_fleet_staggering_updated.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+   
+else:
+
+    st.info("Upload an Excel file to begin.")
