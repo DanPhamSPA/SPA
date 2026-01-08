@@ -49,7 +49,7 @@ if uploaded: #Uploaded excel file update
         eng = st.selectbox("Engine Position", ["Engine 1", "Engine 2"])
     with col2:
         selected_date = st.date_input("Operation start month",value=date.today(),format="DD/MM/YYYY")
-        ShopVisitPurpise = st.selectbox("Shop Visit Scope", ["Engine Performance Restoration", "LLPs"])
+        
         #month = st.number_input("Operation start month", min_value=1, max_value=12, step=1, value=1)
     with col3:
         cycle_plan = st.number_input("Target Run", min_value=0, step=1000, value=9000)
@@ -233,6 +233,7 @@ if uploaded: #Uploaded excel file update
                     StaggingMonth = st.number_input("Start Month Stagging", min_value=1, max_value=12, step=1, value=1)
 
 
+        ShopVisitPurpise = st.selectbox("Shop Visit Scope", ["Engine Performance Restoration", "LLPs"])
 
     with col10:
         CleanStagging = st.selectbox("Cleaning Option", ["Manual", "Automatic"])
