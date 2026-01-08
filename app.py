@@ -215,9 +215,11 @@ if uploaded: #Uploaded excel file update
 
 
     col9, col10, = st.columns(2)
+   
+    st.subheader("Stagging cycle forecast")
+    col31, col32, col33, col34 = st.columns(4)
     #Button stagging
     st1, st2  = st.columns(2)
-    col31, col32, col33, col34 = st.columns(4)
     with col9:
 
         OptionStagging = st.selectbox("Stagging Option", ["Automatic", "Manual"])
@@ -243,14 +245,14 @@ if uploaded: #Uploaded excel file update
     
 
     with col31: 
-        cycle_plan = st.number_input("Remaining Cycle based on EGTM ", min_value=0, step=1000, value=9000)
-
-
+        cycleEGTM = st.number_input("Remaining Cycle based on EGTM ", min_value=0, step=1000, value=9000)
+        cycleRemainingTarget = st.number_input("Remaining Cycle based on Target Run ", min_value=0, step=1000, value=9000)
+        cycleBasedOnFan = st.number_input("Lowest LLP remaining for the Fan", min_value=0, step=1000, value=9000)
 
 
 
     with st1: 
-        if st.button("Engine Stagging"):
+        if st.button("Engine Stagging forecast"):
             if OptionStagging == "Automatic":
                 PlanSchedule(selected_msn, ws, listShort, avg_cycle, eng)
                 st.success("Automatic Stagging mode updated")
