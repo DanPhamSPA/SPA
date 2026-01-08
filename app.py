@@ -64,7 +64,7 @@ if uploaded: #Uploaded excel file update
     year = selected_date.year
     
     with b1: #write schedule
-        if st.button("Add Aircraft"):
+        if st.button("Add Aircraft Engine Schedule"):
 
            
             # e.g. writeSchedule(month, year, cycle_plan, ws, msn, eng, ListAirCraft)
