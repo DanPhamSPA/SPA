@@ -44,7 +44,7 @@ if uploaded: #Uploaded excel file update
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         msn = st.number_input("MSN", min_value=0, step=1)
-        eng = st.selectbox("Engine", ["Eng1", "Eng2"])
+        eng = st.selectbox("Engine Position", ["Engine 1", "Engine 2"])
     with col2:
         year = st.number_input("Operation start year", min_value=2020, max_value=2100, step=1, value=2026)
         month = st.number_input("Operation start month", min_value=1, max_value=12, step=1, value=1)
