@@ -14,6 +14,15 @@ ROOT_YEAR = 2025
 ROOT_MONTH = 1
 ROOT_COL = 6     # F
 ROW = 11
+FAN_LLP = 30000
+HPC_LLP = 17500
+HPT_LLP = 17500
+LPT_LLP = 30000 
+
+UTILISATION = 3000
+SINGLEFL = 1.7 #hours per life cycle 
+
+EXPECTED_CSN  = 9000 #Expected cycle since new 
 
 ROOT_ROW = 11          # first MSN block starts here
 BLOCK_HEIGHT = 4       # every MSN takes 3 rows

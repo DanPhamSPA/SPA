@@ -52,7 +52,7 @@ if uploaded: #Uploaded excel file update
         cycle_plan = st.number_input("CyclePlan", min_value=0, step=50, value=300)
         avg_cycle = st.number_input("Average cycles/month", min_value=1, step=1, value=300)
     with col4:
-        subEntry = st.selectbox("Edit Option", ["None", "None"])
+        EngineSerial = st.text_input("Engine S/N", placeholder="e.g. 59D199")
         EngineType = st.selectbox("Engine Option", ["LEAP-1A32", "LEAP-1A26"])
     # Example action buttons
     b1, b2, = st.columns(2)
