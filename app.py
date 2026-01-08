@@ -118,8 +118,9 @@ if uploaded: #Uploaded excel file update
     
     #MSN control
 
-
+    st.subheader("Aircraft Information")
     msn_list = list(st.session_state.ListAirCraft.keys())
+    
     col5, col6 = st.columns(2)
 
 
@@ -252,7 +253,7 @@ if uploaded: #Uploaded excel file update
 
 
     with st1: 
-        if st.button("Engine Stagging forecast"):
+        if st.button("Engine Stagging Forecast"):
             if OptionStagging == "Automatic":
                 PlanSchedule(selected_msn, ws, listShort, avg_cycle, eng)
                 st.success("Automatic Stagging mode updated")
