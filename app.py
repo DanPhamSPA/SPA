@@ -239,9 +239,10 @@ if uploaded: #Uploaded excel file update
         CleanStagging = st.selectbox("Cleaning Option", ["Manual", "Automatic"])
         
 
+    col31, col32, col33, col34 = st.columns(4)
 
-
-
+    with col31: 
+        cycle_plan = st.number_input("Remaining Cycle based on EGTM ", min_value=0, step=1000, value=9000)
 
 
 
