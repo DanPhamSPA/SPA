@@ -73,7 +73,7 @@ if uploaded: #Uploaded excel file update
             #print(ListAirCraft)
             print(str(address) + "Added New")
 
-            editExcel(address, newEntry, TailAdd, ws, st.session_state.ListAirCraft, subEntry)
+            editExcel(address, newEntry, TailAdd, ws, st.session_state.ListAirCraft, EngineSerial)
             #st.write("Updated aircraft dict:", st.session_state.ListAirCraft)
 
             #Updated file 
