@@ -145,7 +145,7 @@ if uploaded: #Uploaded excel file update
         msnControl1 = st.selectbox("Schedule Option", ["30000", "40000"])
         #if msnControl1 == "30000":
         #   st.success("Plan applied (replace TODO with your function).")
-
+    st.subheader("Aircraft Stagging")
     b3, b4  = st.columns(2)
     with col12:
         subEntry = st.selectbox("Schedule Option", ["Single", "Automatic"])
