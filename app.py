@@ -230,9 +230,10 @@ if uploaded: #Uploaded excel file update
 
     with col10:
         CleanStagging = st.selectbox("Cleaning Option", ["Manual", "Automatic"])
-        selected_date = st.date_input("Select month and year",value=date.today(),format="MM/YYYY")
+        selected_date = st.date_input("Select month and year",value=date.today(),format="DD/MM/YYYY")
 
-
+    month = selected_date.month
+    year = selected_date.year
 
 
 
