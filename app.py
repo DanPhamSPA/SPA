@@ -12,7 +12,7 @@ import os
 
 from datetime import date
 
-
+CYCLE_PER_DAY = 8
 
 st.set_page_config(page_title="Engine Fleet Staggering", layout="wide")
 st.title("Engine Fleet Staggering – Scheduler UI")
@@ -250,12 +250,21 @@ if uploaded: #Uploaded excel file update
         cycleRemainingTarget = st.number_input("Remaining Cycle based on Target Run ", min_value=0, step=1000, value=9000)
         cycleBasedOnFan = st.number_input("Lowest LLP remaining for the Fan", min_value=0, step=1000, value=9000)
 
+    #Get forcast date after update
+    Forecast_Delta = min(cycleBasedOnFan, cycleEGTM, cycleRemainingTarget)/CYCLE_PER_DAY
 
+
+
+    #Selected date started 
+
+   
 
     with st1: 
         if st.button("Engine Stagging Forecast"):
             if OptionStagging == "Automatic":
                 PlanSchedule(selected_msn, ws, listShort, 300, eng)
+                End_Date = selected_date + timedelta(days=Forecast_Delta)
+                st.success("Format Date " + str(End_Date) + " Successfully added")
                 st.success("Automatic Stagging mode updated")
             if OptionStagging == "Manual":
                 PlanShopDate(selected_msn, 6, StaggingMonth, StaggingYear, listShort, ws, eng)
@@ -269,6 +278,24 @@ if uploaded: #Uploaded excel file update
         #st.success("MSN " + str(msn) + " Successfully added")
         st.session_state.excel_bytes = out.getvalue()
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     st.write("")
     st.write("")
     ## Download output documents 
