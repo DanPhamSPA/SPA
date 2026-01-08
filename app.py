@@ -47,8 +47,7 @@ if uploaded: #Uploaded excel file update
         eng = st.selectbox("Engine Position", ["Engine 1", "Engine 2"])
     with col2:
         selected_date = st.date_input("Select month and year",value=date.today(),format="DD/MM/YYYY")
-        month = selected_date.month
-        year = selected_date.year
+       
         #month = st.number_input("Operation start month", min_value=1, max_value=12, step=1, value=1)
     with col3:
         cycle_plan = st.number_input("Target Run", min_value=0, step=1000, value=9000)
@@ -58,7 +57,8 @@ if uploaded: #Uploaded excel file update
         EngineType = st.selectbox("Engine Option", ["LEAP-1A32", "LEAP-1A26"])
     # Example action buttons
     b1, b2, = st.columns(2)
-   
+    month = selected_date.month
+    year = selected_date.year
     
     with b1: #write schedule
         if st.button("Add Aircraft"):
