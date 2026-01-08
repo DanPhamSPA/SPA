@@ -39,15 +39,17 @@ if uploaded: #Uploaded excel file update
         #st.session_state.ListAirCraft = {} 
     listShort = st.session_state.ListAirCraft
 
-    st.subheader("Add / Plan Schedule")
+
+    st.subheader("Current Status")
+    
     #add dropped downoption
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         msn = st.number_input("MSN", min_value=0, step=1)
         eng = st.selectbox("Engine Position", ["Engine 1", "Engine 2"])
     with col2:
-        selected_date = st.date_input("Select month and year",value=date.today(),format="DD/MM/YYYY")
-       
+        selected_date = st.date_input("Operation start month",value=date.today(),format="DD/MM/YYYY")
+        ShopVisitPurpise = st.selectbox("Shop Visit Scope", ["Engine Performance Restoration", "LLPs"])
         #month = st.number_input("Operation start month", min_value=1, max_value=12, step=1, value=1)
     with col3:
         cycle_plan = st.number_input("Target Run", min_value=0, step=1000, value=9000)
@@ -57,6 +59,7 @@ if uploaded: #Uploaded excel file update
         EngineType = st.selectbox("Engine Option", ["LEAP-1A32", "LEAP-1A26"])
     # Example action buttons
     b1, b2, = st.columns(2)
+
     month = selected_date.month
     year = selected_date.year
     
