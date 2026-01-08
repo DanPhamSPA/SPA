@@ -255,7 +255,7 @@ if uploaded: #Uploaded excel file update
     with st1: 
         if st.button("Engine Stagging Forecast"):
             if OptionStagging == "Automatic":
-                PlanSchedule(selected_msn, ws, listShort, avg_cycle, eng)
+                PlanSchedule(selected_msn, ws, listShort, 300, eng)
                 st.success("Automatic Stagging mode updated")
             if OptionStagging == "Manual":
                 PlanShopDate(selected_msn, 6, StaggingMonth, StaggingYear, listShort, ws, eng)
