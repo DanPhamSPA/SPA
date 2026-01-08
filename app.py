@@ -49,7 +49,7 @@ if uploaded: #Uploaded excel file update
         year = st.number_input("Operation start year", min_value=2020, max_value=2100, step=1, value=2026)
         month = st.number_input("Operation start month", min_value=1, max_value=12, step=1, value=1)
     with col3:
-        cycle_plan = st.number_input("CyclePlan", min_value=0, step=50, value=300)
+        cycle_plan = st.number_input("Target Run", min_value=0, step=1000, value=10000)
         avg_cycle = st.number_input("Average cycles/month", min_value=1, step=1, value=300)
     with col4:
         EngineSerial = st.text_input("Engine S/N", placeholder="e.g. 59D199")

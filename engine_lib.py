@@ -92,7 +92,7 @@ def getAircraft(MSN, ListAirCraft):
     
     return ListAirCraft.get(MSN)
 
-def editExcel(address, newEntry, tail, ws, list, subEntry1):
+def editExcel(address, newEntry, tail, ws, list, EngineSerial):
     #print(tail)
     #result = list.get(tail).get("Eng1").get("Schedule")[0][0]
     #print(result)
@@ -128,7 +128,7 @@ def editExcel(address, newEntry, tail, ws, list, subEntry1):
     ws["B" + str(address + 3)].font = Font(bold=True)
     
 
-    subEntry = subEntry1
+    subEntry = "none"
     while subEntry:
 
         if (subEntry.lower() == "none"):
