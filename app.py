@@ -334,7 +334,7 @@ if uploaded: #Uploaded excel file update
             index = find_min_owner(Spare1, "FirstVisit")
             remaining = determineOffset(index, listShort, Spare1)
             st.success(remaining)
-            st.success(index)
+            #st.success(index)
 
         
 
