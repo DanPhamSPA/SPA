@@ -293,11 +293,17 @@ if uploaded: #Uploaded excel file update
     First = list(listShort.items())
     
     if len(First) >= 2:
-
-        Spare1 = dict(First[:2])
-
-    else: 
-        Spare1 = dict(First[:1])
+        Spare1 = [
+            First[0][1]["Eng1"],
+            First[0][1]["Eng2"],
+            First[1][1]["Eng1"],
+            First[1][1]["Eng2"],
+        ]
+    else:
+        Spare1 = [
+            First[0][1]["Eng1"],
+            First[0][1]["Eng2"],
+        ]
 
 
     with st1: 
