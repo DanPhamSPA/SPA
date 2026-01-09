@@ -301,7 +301,7 @@ if uploaded: #Uploaded excel file update
 
                 
                 st.success("MSN " + str(selected_msn) + " forecast date Successfully added ")
-                st.success("Automatic Stagging mode updated " + str(listShort))
+                st.success("Automatic Stagging mode updated " + str(listShort.get(selected_msn)))
             if OptionStagging == "Manual":
                 PlanShopDate(selected_msn, 6, StaggingMonth, StaggingYear, listShort, ws, eng)
                 st.success("Manual Stagging mode updated")
