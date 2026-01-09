@@ -7,6 +7,8 @@ from ExcelRule import RedFillCell, Redfill, CleanFill
 import json
 import os
 from datetime import timedelta
+
+from datetime import date, datetime
 AIRCRAFT_JSON = "aircraft.json"
 EXPECTED_LOSS = 1800
 DESIRED_CYCLE = 9000 
@@ -18,6 +20,9 @@ FAN_LLP = 30000
 HPC_LLP = 17500
 HPT_LLP = 17500
 LPT_LLP = 30000 
+
+
+SHOPVISIT_FACTOR = 6 #6 Months or 180 days
 
 UTILISATION = 3000
 SINGLEFL = 1.7 #hours per life cycle 
@@ -43,7 +48,7 @@ ShopVisitConvert = {
 def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate):
 
 
-   
+    ShopVisit_days = SHOPVISIT_FACTOR * 30
 
     #Assumption is that the next start forecas the last of previous shop visit limit + Forecast time 
     
@@ -55,15 +60,21 @@ def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate):
     Forecast_Delta3 = min(listVisit[2][0], listVisit[2][1], listVisit[2][2])/SetFactor
 
 
-    listAC[MSN]["FirstVisit"] = selectedDate + timedelta(days=Forecast_Delta1)
-    listAC[MSN]["SecondVisit"] =  listAC[MSN]["FirstVisit"] + timedelta(days=Forecast_Delta2)
-    listAC[MSN]["ThirdVisit"] = listAC[MSN]["SecondVisit"] + timedelta(days=Forecast_Delta3)
+    listAC[MSN]["FirstVisit"] = selectedDate + timedelta(days=Forecast_Delta1+ ShopVisit_days)
+    listAC[MSN]["SecondVisit"] =  listAC[MSN]["FirstVisit"] + timedelta(days=Forecast_Delta2 + ShopVisit_days)
+    listAC[MSN]["ThirdVisit"] = listAC[MSN]["SecondVisit"] + timedelta(days=Forecast_Delta3+ ShopVisit_days)
     
     
 
 
 
     return
+def _json_default(o):
+    if isinstance(o, (date, datetime)):
+        return o.isoformat()   # e.g. "2026-06-13"
+    raise TypeError(f"Object of type {type(o).__name__} is not JSON serializable")
+
+
 
 def getVisit(entry):
     return ShopVisitConvert.get(entry)
@@ -73,7 +84,7 @@ def terminate_list(path=AIRCRAFT_JSON):
 
 def save_aircraft_dict(data, path=AIRCRAFT_JSON):
      with open(path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2)
+        json.dump(data, f, indent=2, default=_json_default)
 
 
 def load_aircraft_dict(path=AIRCRAFT_JSON):
