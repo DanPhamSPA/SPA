@@ -94,19 +94,14 @@ def to_date(x):
     return None
 
 
-def findStart(entry, key):
-    dates = []
-    for d in entry:
-        if not isinstance(d, dict):
-            continue
-        raw = d.get(key)
-        if raw in (None, "", 0):
-            continue
-        parsed = to_date(raw)
-        if parsed is not None:
-            dates.append(parsed)
+def find_min_owner(labeled_engines, visit_key="FirstVisit"):
+    candidates = []
+    for msn, eng, d in labeled_engines:
+        dt = to_date(d.get(visit_key))
+        if dt is not None and d.get(visit_key) not in (0, "", None):
+            candidates.append((dt, msn, eng))
 
-    return min(dates) if dates else None
+    return min(candidates) if candidates else None
 
 def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate, eng):
 

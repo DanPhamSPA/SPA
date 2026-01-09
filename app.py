@@ -5,7 +5,7 @@ from engine_lib import load_aircraft_dict, save_aircraft_dict, terminate_list
 
 from openpyxl import load_workbook
 from engine_lib import addNewEngine, getEngine, getAircraft, editExcel, getCell, addSchedule, getTail, rangeSchedule
-from engine_lib import PlanShopDate, PlanSchedule, row_for, cleanSchedule, getVisit, updateVisit, findStart
+from engine_lib import PlanShopDate, PlanSchedule, row_for, cleanSchedule, getVisit, updateVisit, find_min_owner
 from ExcelRule import RedFillCell, configureFormat
 from datetime import datetime, timedelta
 import os
@@ -291,20 +291,10 @@ if uploaded: #Uploaded excel file update
 
     #getIndex = getVisit(ShopVisitPurpose) 
     First = list(listShort.items())
-    
-    if len(First) >= 2:
-        Spare1 = [
-            First[0][1]["Eng1"],
-            First[0][1]["Eng2"],
-            First[1][1]["Eng1"],
-            First[1][1]["Eng2"],
-        ]
-    else:
-        Spare1 = [
-            First[0][1]["Eng1"],
-            First[0][1]["Eng2"],
-        ]
-
+    Spare1 = []
+    for msn, rec in First[:2]:       # first 2 aircraft (adjust if needed)
+        Spare1.append((msn, "Eng1", rec["Eng1"]))
+        Spare1.append((msn, "Eng2", rec["Eng2"]))
 
     with st1: 
         if st.button("Engine Stagging Forecast"):
@@ -340,8 +330,8 @@ if uploaded: #Uploaded excel file update
 
         if st.button("Finalise schedule"):
             st.write("Spare1 preview:", Spare1)
-            index = findStart(Spare1, "FirstVisit")
-            st.success(index.strftime("%Y-%m-%d"))
+            index = find_min_owner(Spare1, "FirstVisit")
+            st.success(index)
         
 
 
