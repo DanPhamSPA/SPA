@@ -297,7 +297,7 @@ if uploaded: #Uploaded excel file update
                 
                 #endDate = selected_date + timedelta(days=Forecast_Delta)
 
-                updateVisit(selected_msn, listShort, ListInputForecast, SetFactor)
+                updateVisit(selected_msn, listShort, ListInputForecast, SetFactor, selected_date)
 
                 
                 st.success("MSN " + str(selected_msn) + " forecast date Successfully added ")
