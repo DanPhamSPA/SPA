@@ -341,7 +341,7 @@ if uploaded: #Uploaded excel file update
         if st.button("Finalise schedule"):
             st.write("Spare1 preview:", Spare1)
             index = findStart(Spare1, ShopVisitPurpose)
-            st.success(index)
+            st.success(index.strftime("%Y-%m-%d"))
         
 
 
