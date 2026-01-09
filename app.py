@@ -5,7 +5,7 @@ from engine_lib import load_aircraft_dict, save_aircraft_dict, terminate_list
 
 from openpyxl import load_workbook
 from engine_lib import addNewEngine, getEngine, getAircraft, editExcel, getCell, addSchedule, getTail, rangeSchedule
-from engine_lib import PlanShopDate, PlanSchedule, row_for, cleanSchedule
+from engine_lib import PlanShopDate, PlanSchedule, row_for, cleanSchedule, getVisit
 from ExcelRule import RedFillCell, configureFormat
 from datetime import datetime, timedelta
 import os
@@ -239,7 +239,7 @@ if uploaded: #Uploaded excel file update
                     StaggingMonth = st.number_input("Start Month Stagging", min_value=1, max_value=12, step=1, value=1)
 
 
-        ShopVisitPurpise = st.selectbox("Shop Visit Scope", ["Engine Performance Restoration", "LLPs"])
+        ShopVisitPurpose = st.selectbox("Shop Visit Scope", ["Engine Performance Restoration", "LLPs"])
 
     with col10:
         CleanStagging = st.selectbox("Cleaning Option", ["Manual", "Automatic"])
@@ -264,14 +264,15 @@ if uploaded: #Uploaded excel file update
 
     #Selected date started 
 
-   
+    getIndex = getVisit(ShopVisitPurpose) 
+            
 
     with st1: 
         if st.button("Engine Stagging Forecast"):
             if OptionStagging == "Automatic":
                 PlanSchedule(selected_msn, ws, listShort, 300, eng)
                 End_Date = selected_date + timedelta(days=Forecast_Delta)
-                st.success("MSN" + str(selected_msn) + "forecast date " + str(End_Date) + " Successfully added")
+                st.success("MSN " + str(selected_msn) + " forecast date " + str(End_Date) + " Successfully added " + str(getIndex))
                 st.success("Automatic Stagging mode updated")
             if OptionStagging == "Manual":
                 PlanShopDate(selected_msn, 6, StaggingMonth, StaggingYear, listShort, ws, eng)

@@ -33,6 +33,16 @@ ENGINE_OFFSET = {
     "Spacer": 2,   # optional
     "Cycle": 3
 }
+
+ShopVisitConvert = {
+    "Engine Performance Restoration": 0,
+    "LLPs": 2
+}
+
+
+def getVisit(entry):
+    return ShopVisitConvert.get(entry)
+
 def terminate_list(path=AIRCRAFT_JSON):
     open(path, 'w').close()
 
@@ -76,7 +86,8 @@ def addNewEngine(MSN, Eng1, Eng2):
     #Schedule2 = np.zeros((10, 12))
 
     newEntry = {MSN:{Eng1:{"CycleR":100, "Schedule": 1}, 
-                     Eng2:{"CycleR":0, "Schedule": 1}, "ShopVisit": 0}}
+                     Eng2:{"CycleR":0, "Schedule": 1}, "ShopVisit": 0, "FirstVisit":0,
+                     "SecondVisit":0, "ThirdVisit":0}}
 
     #Schedule1[0][0] = 120
     
