@@ -332,7 +332,7 @@ if uploaded: #Uploaded excel file update
         #Engine ???? Pair Eng 2: return the earliest (index of)
 
         if st.button("Engine Stagging Forecast"):
-            index = findStart(Spare1)
+            index = findStart(Spare1, ShopVisitPurpose)
             st.success("Ealier date " + str(index))
         
 
