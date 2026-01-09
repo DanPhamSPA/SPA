@@ -48,9 +48,9 @@ def updateVisit(MSN, index,listAC, endDate):
     if index == 0:
         listAC[MSN]["FirstVisit"] = endDate
     elif index == 1:
-        listAC[MSN]["SecondVisit"] = endDate
+        listAC[MSN]["SecondVisit"] = listAC[MSN]["FirstVisit"] + endDate
     elif index == 2:
-        listAC[MSN]["ThirdVisit"] = endDate
+        listAC[MSN]["ThirdVisit"] = listAC[MSN]["SecondVisit"] + endDate
     else:
         raise ValueError("index must be 0, 1, or 2")
 
