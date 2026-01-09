@@ -44,6 +44,7 @@ if uploaded: #Uploaded excel file update
     
     #add dropped downoption
     col1, col2, col3, col4 = st.columns(4)
+
     with col1:
         msn = st.number_input("MSN", min_value=0, step=1)
         eng = st.selectbox("Engine Position", ["Eng1", "Eng2"])
@@ -54,6 +55,7 @@ if uploaded: #Uploaded excel file update
     with col3:
         cycle_plan = st.number_input("Target Run", min_value=0, step=1000, value=9000)
         avg_cycle = st.number_input("Average cycles/month", min_value=1, step=1, value=300)
+
     with col4:
         EngineSerial = st.text_input("Engine S/N", placeholder="e.g. 59D199")
         EngineType = st.selectbox("Engine Option", ["LEAP-1A32", "LEAP-1A26"])
@@ -269,7 +271,7 @@ if uploaded: #Uploaded excel file update
             if OptionStagging == "Automatic":
                 PlanSchedule(selected_msn, ws, listShort, 300, eng)
                 End_Date = selected_date + timedelta(days=Forecast_Delta)
-                st.success("MSN" + selected_msn + "forecast date " + str(End_Date) + " Successfully added")
+                st.success("MSN" + str(selected_msn) + "forecast date " + str(End_Date) + " Successfully added")
                 st.success("Automatic Stagging mode updated")
             if OptionStagging == "Manual":
                 PlanShopDate(selected_msn, 6, StaggingMonth, StaggingYear, listShort, ws, eng)
