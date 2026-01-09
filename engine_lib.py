@@ -40,7 +40,7 @@ ENGINE_OFFSET = {
     "Cycle": 3
 }
 ShopVisit1 = {
-    "Engine1": 0,
+    "Engine1": -120,
     "Engine2": 60,
     "Engine3": 240,
     "Engine4": 420
@@ -102,6 +102,13 @@ def find_min_owner(labeled_engines, visit_key="FirstVisit"):
             candidates.append((dt, msn, eng))
 
     return min(candidates) if candidates else None
+
+def determineOffset(min, listAC, spareList):
+    #Always eng 1
+    remaining = [(msn, eng, d) for msn, eng, d in spareList if msn != min]
+
+    return remaining
+
 
 def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate, eng):
 

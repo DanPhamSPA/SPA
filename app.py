@@ -6,6 +6,7 @@ from engine_lib import load_aircraft_dict, save_aircraft_dict, terminate_list
 from openpyxl import load_workbook
 from engine_lib import addNewEngine, getEngine, getAircraft, editExcel, getCell, addSchedule, getTail, rangeSchedule
 from engine_lib import PlanShopDate, PlanSchedule, row_for, cleanSchedule, getVisit, updateVisit, find_min_owner
+from engine_lib import determineOffset
 from ExcelRule import RedFillCell, configureFormat
 from datetime import datetime, timedelta
 import os
@@ -331,6 +332,7 @@ if uploaded: #Uploaded excel file update
         if st.button("Finalise schedule"):
             st.write("Spare1 preview:", Spare1)
             index = find_min_owner(Spare1, "FirstVisit")
+            remaining = determineOffset(index, listShort, Spare1)
             st.success(index)
         
 
