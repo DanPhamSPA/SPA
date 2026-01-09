@@ -67,25 +67,23 @@ purpose_to_visit_key = {
 }
 #To deate method/function
 def to_date(x):
-    # already a date/datetime
     if isinstance(x, datetime):
         return x.date()
     if isinstance(x, date):
         return x
 
-    # strings
     if isinstance(x, str):
         s = x.strip()
         if not s:
             return None
 
-        # ISO: "YYYY-MM-DD" or "YYYY-MM-DDTHH:MM:SS"
+        # ISO formats: "YYYY-MM-DD" or "YYYY-MM-DDTHH:MM:SS"
         try:
             return datetime.fromisoformat(s).date()
         except ValueError:
             pass
 
-        # "datetime.date(2031, 6, 12)"
+        # Handles: "datetime.date(2031, 6, 12)"
         m = re.match(r"^datetime\.date\((\d{4}),\s*(\d{1,2}),\s*(\d{1,2})\)$", s)
         if m:
             y, mo, d = map(int, m.groups())
@@ -93,14 +91,21 @@ def to_date(x):
 
         return None
 
-    # anything else (0, None, etc.)
     return None
-def findStart(entry, Purpose):
-    dates = [
-        to_date(d.get(Purpose))
-        for d in entry
-        if isinstance(d, dict) and to_date(d.get(Purpose)) is not None
-    ]
+
+
+def findStart(entry, key):
+    dates = []
+    for d in entry:
+        if not isinstance(d, dict):
+            continue
+        raw = d.get(key)
+        if raw in (None, "", 0):
+            continue
+        parsed = to_date(raw)
+        if parsed is not None:
+            dates.append(parsed)
+
     return min(dates) if dates else None
 
 def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate, eng):
