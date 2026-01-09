@@ -70,7 +70,7 @@ if uploaded: #Uploaded excel file update
 
     month = selected_date.month
     year = selected_date.year
-    listShort[msn]["StartOperation"]  = selected_date
+    #listShort[msn]["StartOperation"]  = selected_date
     with b1: #write schedule
         if st.button("Add Aircraft Engine Schedule"):
 
