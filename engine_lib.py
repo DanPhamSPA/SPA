@@ -42,7 +42,7 @@ ShopVisitConvert = {
 
 def updateVisit(MSN, index,list, endDate):
     if index == 0:
-        list.get(MSN).get("FirstVist") = endDate
+        list.get(MSN).get("FirstVisit") = endDate
     if index == 1:
         list.get(MSN).get("SecondVisit") = endDate
     else:    
