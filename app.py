@@ -253,7 +253,7 @@ if uploaded: #Uploaded excel file update
 
     with col32:
         SetFactor = st.number_input("Average cycle per day", min_value=0.1, step=0.1, value=5)
-
+        SetFactor1 = st.number_input("Average cycle per day 2", min_value=0.1, step=0.1, value=6)
 
     #Get forcast date after update
     Forecast_Delta = min(cycleBasedOnFan, cycleEGTM, cycleRemainingTarget)/SetFactor
