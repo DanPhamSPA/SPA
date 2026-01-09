@@ -21,6 +21,7 @@ HPC_LLP = 17500
 HPT_LLP = 17500
 LPT_LLP = 30000 
 
+ESTIMATED_CSN = 9000
 
 SHOPVISIT_FACTOR = 6 #6 Months or 180 days
 
@@ -37,6 +38,20 @@ ENGINE_OFFSET = {
     "Eng2": 1,
     "Spacer": 2,   # optional
     "Cycle": 3
+}
+ShopVisit1 = {
+    "Engine1": 0,
+    "Engine2": 60,
+    "Engine3": 240,
+    "Engine4": 420
+
+}
+
+ShopVisit2 = {
+    "Engine1": 180,
+    "Engine2": 180,
+    "Engine3": 180,
+    "Engine4": 180
 }
 
 ShopVisitConvert = {
@@ -60,15 +75,16 @@ def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate):
     Forecast_Delta3 = min(listVisit[2][0], listVisit[2][1], listVisit[2][2])/SetFactor
 
 
-    listAC[MSN]["FirstVisit"] = selectedDate + timedelta(days=Forecast_Delta1+ ShopVisit_days)
-    listAC[MSN]["SecondVisit"] =  listAC[MSN]["FirstVisit"] + timedelta(days=Forecast_Delta2 + ShopVisit_days)
-    listAC[MSN]["ThirdVisit"] = listAC[MSN]["SecondVisit"] + timedelta(days=Forecast_Delta3+ ShopVisit_days)
+    listAC[MSN]["Eng1"]["FirstVisit"] = selectedDate + timedelta(days=Forecast_Delta1+ ShopVisit_days)
+    listAC[MSN]["Eng1"]["SecondVisit"] =  listAC[MSN]["FirstVisit"] + timedelta(days=Forecast_Delta2 + ShopVisit_days)
+    listAC[MSN]["Eng1"]["ThirdVisit"] = listAC[MSN]["SecondVisit"] + timedelta(days=Forecast_Delta3 + ShopVisit_days)
     
     
-
-
 
     return
+
+
+
 def _json_default(o):
     if isinstance(o, (date, datetime)):
         return o.isoformat()   # e.g. "2026-06-13"
@@ -86,7 +102,7 @@ def save_aircraft_dict(data, path=AIRCRAFT_JSON):
      with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, default=_json_default)
 
-
+#Defult data dump 
 def load_aircraft_dict(path=AIRCRAFT_JSON):
     if not os.path.exists(path):
         with open(path, "w", encoding="utf-8") as f:
@@ -121,10 +137,11 @@ def addNewEngine(MSN, Eng1, Eng2):
     #Schedule1 = np.zeros((10, 12))
     #Schedule2 = np.zeros((10, 12))
 
-    newEntry = {MSN:{Eng1:{"CycleR":100, "Schedule": 1},"StartOperation":0, 
-                     Eng2:{"CycleR":0, "Schedule": 1}, "ShopVisit": 1, "FirstVisit":0,
-                     "SecondVisit":0, "ThirdVisit":0}}
-
+    newEntry = {MSN:{
+                Eng1:{"CycleR":100, "Schedule": 1, "ShopVisit": 1, "FirstVisit":0, "SecondVisit":0, "ThirdVisit":0},
+                Eng2:{"CycleR":0, "Schedule": 1, "ShopVisit": 1, "FirstVisit":0,"SecondVisit":0, "ThirdVisit":0}
+                ,"StartOperation":0}
+    }
     #Schedule1[0][0] = 120
     
     return newEntry
