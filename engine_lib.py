@@ -43,16 +43,16 @@ ShopVisitConvert = {
 def updateVisit(MSN,listAC, listVisit, SetFactor):
 
 
-    Forecast_Delta1 = min(listVisit[0][0], listVisit[0][0], listVisit[0][0])/SetFactor
-    Forecast_Delta2 = min(listVisit[0][0], listVisit[0][0], listVisit[0][0])/SetFactor
-    Forecast_Delta3 = min(listVisit[0][0], listVisit[0][0], listVisit[0][0])/SetFactor
+   
 
     #Assumption is that the next start forecas the last of previous shop visit limit + Forecast time 
     
     if MSN not in listAC:
         raise KeyError(f"MSN {MSN} not found in aircraft list")
 
-  
+    Forecast_Delta1 = min(listVisit[0][0], listVisit[0][0], listVisit[0][0])/SetFactor
+    Forecast_Delta2 = min(listVisit[0][0], listVisit[0][0], listVisit[0][0])/SetFactor
+    Forecast_Delta3 = min(listVisit[0][0], listVisit[0][0], listVisit[0][0])/SetFactor
     listAC[MSN]["FirstVisit"] = listAC[MSN]["StartOperation"] + timedelta(days=Forecast_Delta1)
     listAC[MSN]["SecondVisit"] =  listAC[MSN]["FirstVisit"] + timedelta(days=Forecast_Delta2)
     listAC[MSN]["ThirdVisit"] = listAC[MSN]["SecondVisit"] + timedelta(days=Forecast_Delta3)
