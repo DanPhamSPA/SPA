@@ -253,7 +253,7 @@ if uploaded: #Uploaded excel file update
 
     with col32:
         SetFactor = st.number_input("Average cycle per day", min_value=1.0, step=0.1, value=5.0)
-        SetFactor1 = st.number_input("Average cycle per day 2", min_value=1.0, step=0.1, value=6.0)
+        #SetFactor1 = st.number_input("Average cycle per day 2", min_value=1.0, step=0.1, value=6.0)
 
     #Get forcast date after update
     Forecast_Delta = min(cycleBasedOnFan, cycleEGTM, cycleRemainingTarget)/SetFactor
@@ -269,7 +269,7 @@ if uploaded: #Uploaded excel file update
             if OptionStagging == "Automatic":
                 PlanSchedule(selected_msn, ws, listShort, 300, eng)
                 End_Date = selected_date + timedelta(days=Forecast_Delta)
-                st.success("Format Date " + str(End_Date) + " Successfully added")
+                st.success("MSN" + selected_msn + "forecast date " + str(End_Date) + " Successfully added")
                 st.success("Automatic Stagging mode updated")
             if OptionStagging == "Manual":
                 PlanShopDate(selected_msn, 6, StaggingMonth, StaggingYear, listShort, ws, eng)

@@ -76,7 +76,7 @@ def addNewEngine(MSN, Eng1, Eng2):
     #Schedule2 = np.zeros((10, 12))
 
     newEntry = {MSN:{Eng1:{"CycleR":100, "Schedule": 1}, 
-                     Eng2:{"CycleR":0, "Schedule": 1}}}
+                     Eng2:{"CycleR":0, "Schedule": 1}, "ShopVisit": 0}}
 
     #Schedule1[0][0] = 120
     
