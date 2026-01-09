@@ -59,46 +59,48 @@ ShopVisitConvert = {
     "Engine Performance Restoration 2": 1,
     "LLPs": 2
 }
+
+purpose_to_visit_key = {
+    "Engine Performance Restoration 1": "FirstVisit",
+    "Engine Performance Restoration 2": "SecondVisit",
+    "LLPs": "ThirdVisit",
+}
 #To deate method/function
 def to_date(x):
+    # already a date/datetime
     if isinstance(x, datetime):
         return x.date()
     if isinstance(x, date):
         return x
-    if isinstance(x, str) and x:
-       s = x.strip()
+
+    # strings
+    if isinstance(x, str):
+        s = x.strip()
+        if not s:
+            return None
 
         # ISO: "YYYY-MM-DD" or "YYYY-MM-DDTHH:MM:SS"
-    try:
-        return datetime.fromisoformat(s).date()
-    except ValueError:
-        pass
+        try:
+            return datetime.fromisoformat(s).date()
+        except ValueError:
+            pass
 
-    # "datetime.date(2031, 6, 12)"
-    m = re.match(r"^datetime\.date\((\d{4}),\s*(\d{1,2}),\s*(\d{1,2})\)$", s)
-    if m:
-        y, mo, d = map(int, m.groups())
-        return date(y, mo, d)
+        # "datetime.date(2031, 6, 12)"
+        m = re.match(r"^datetime\.date\((\d{4}),\s*(\d{1,2}),\s*(\d{1,2})\)$", s)
+        if m:
+            y, mo, d = map(int, m.groups())
+            return date(y, mo, d)
 
+        return None
+
+    # anything else (0, None, etc.)
     return None
-
-def findStart(entry, visit_key="FirstVisit"):
-    """
-    entry: list of dicts (e.g., [Eng1_dict, Eng2_dict, ...])
-    Returns earliest date among entry[*][visit_key]
-    """
-    for i, d in enumerate(entry):
-        if isinstance(d, dict):
-            raw = d.get(visit_key)
-            parsed = to_date(raw)
-            print(i, visit_key, "raw=", raw, "parsed=", parsed, "type(raw)=", type(raw))
-    
+def findStart(entry, Purpose):
     dates = [
-    to_date(d.get(visit_key))
-    for d in entry
-    if isinstance(d, dict) and to_date(d.get(visit_key)) is not None and d.get(visit_key) not in (0, "", None)
+        to_date(d.get(Purpose))
+        for d in entry
+        if isinstance(d, dict) and to_date(d.get(Purpose)) is not None
     ]
-    print(dates)
     return min(dates) if dates else None
 
 def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate, eng):
