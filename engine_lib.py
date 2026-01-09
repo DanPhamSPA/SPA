@@ -40,13 +40,13 @@ ShopVisitConvert = {
     "LLPs": 2
 }
 
-def updateVisit(MSN, index,list, endDate):
+def updateVisit(MSN, index,listAC, endDate):
     if index == 0:
-        list.get(MSN).get("FirstVisit") = endDate
+        listAC.get(MSN).get("FirstVisit") = endDate
     if index == 1:
-        list.get(MSN).get("SecondVisit") = endDate
+        listAC.get(MSN).get("SecondVisit") = endDate
     else:    
-        list.get(MSN).get("ThirdVisit") = endDate
+        listAC.get(MSN).get("ThirdVisit") = endDate
 
 
 
