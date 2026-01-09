@@ -249,9 +249,12 @@ if uploaded: #Uploaded excel file update
         cycleEGTM = st.number_input("Remaining Cycle based on EGTM ", min_value=0, step=1000, value=9000)
         cycleRemainingTarget = st.number_input("Remaining Cycle based on Target Run ", min_value=0, step=1000, value=9000)
         cycleBasedOnFan = st.number_input("Lowest LLP remaining for the Fan", min_value=0, step=1000, value=9000)
+    with col32:
+        SetFactor = st.number_input("Average cycle per day", min_value=0, step=0.01, value=200)
+
 
     #Get forcast date after update
-    Forecast_Delta = min(cycleBasedOnFan, cycleEGTM, cycleRemainingTarget)/CYCLE_PER_DAY
+    Forecast_Delta = min(cycleBasedOnFan, cycleEGTM, cycleRemainingTarget)/SetFactor
 
 
 
