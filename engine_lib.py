@@ -60,7 +60,7 @@ ShopVisitConvert = {
     "LLPs": 2
 }
 
-def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate):
+def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate, eng):
 
 
     ShopVisit_days = SHOPVISIT_FACTOR * 30
@@ -72,12 +72,12 @@ def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate):
 
     Forecast_Delta1 = min(listVisit[0][0], listVisit[0][1], listVisit[0][2])/SetFactor
     Forecast_Delta2 = min(listVisit[1][0], listVisit[1][1], listVisit[1][2])/SetFactor
-    Forecast_Delta3 = min(listVisit[2][0], listVisit[2][1], listVisit[2][2])/SetFactor
+    Forecast_Delta3 = min(listVisit[2][0], listVisit[2][1], listVisist[2][2])/SetFactor
 
 
-    listAC[MSN]["Eng1"]["FirstVisit"] = selectedDate + timedelta(days=Forecast_Delta1+ ShopVisit_days)
-    listAC[MSN]["Eng1"]["SecondVisit"] =  listAC[MSN]["Eng1"]["FirstVisit"] + timedelta(days=Forecast_Delta2 + ShopVisit_days)
-    listAC[MSN]["Eng1"]["ThirdVisit"] = listAC[MSN]["Eng1"]["SecondVisit"] + timedelta(days=Forecast_Delta3 + ShopVisit_days)
+    listAC[MSN][eng]["FirstVisit"] = selectedDate + timedelta(days=Forecast_Delta1+ ShopVisit_days)
+    listAC[MSN][eng]["SecondVisit"] =  listAC[MSN][eng]["FirstVisit"] + timedelta(days=Forecast_Delta2 + ShopVisit_days)
+    listAC[MSN][eng]["ThirdVisit"] = listAC[MSN][eng]["SecondVisit"] + timedelta(days=Forecast_Delta3 + ShopVisit_days)
     
     
 

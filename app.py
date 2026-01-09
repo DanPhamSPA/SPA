@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 import os
 
 from datetime import date
-
+SPARE_FACTOR = 2
 CYCLE_PER_DAY = 8
 
 st.set_page_config(page_title="Engine Fleet Staggering", layout="wide")
@@ -39,6 +39,8 @@ if uploaded: #Uploaded excel file update
         #st.session_state.ListAirCraft = {} 
     listShort = st.session_state.ListAirCraft
 
+    
+    st.session_state.ListSpare = {}
 
     st.subheader("Current Status")
     
@@ -287,7 +289,8 @@ if uploaded: #Uploaded excel file update
     #Selected date started 
 
     #getIndex = getVisit(ShopVisitPurpose) 
-    
+    First = list(listShort.items())
+    Spare1 = {First[0], First[1]}
 
 
     with st1: 
@@ -297,11 +300,12 @@ if uploaded: #Uploaded excel file update
                 
                 #endDate = selected_date + timedelta(days=Forecast_Delta)
 
-                updateVisit(selected_msn, listShort, ListInputForecast, SetFactor, selected_date)
+                updateVisit(selected_msn, listShort, ListInputForecast, SetFactor, selected_date, eng)
 
                 
                 st.success("MSN " + str(selected_msn) + " forecast date Successfully added ")
                 st.success("Automatic Stagging mode updated " + str(listShort.get(selected_msn)))
+                st.success(str(Spare1))
             if OptionStagging == "Manual":
                 PlanShopDate(selected_msn, 6, StaggingMonth, StaggingYear, listShort, ws, eng)
                 st.success("Manual Stagging mode updated")
