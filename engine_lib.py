@@ -59,10 +59,25 @@ ShopVisitConvert = {
     "Engine Performance Restoration 2": 1,
     "LLPs": 2
 }
+#To deate method/function
+def to_date(x):
+    if isinstance(x, date):
+        return x
+    if isinstance(x, str) and x:
+        return datetime.fromisoformat(x).date()
+    return None
+
+
 
 def findStart(entry, ShopPurpose):
-    earliest = min(v[ShopPurpose] for v in entry.values())
-    return earliest
+    min_start = min(
+    to_date(record["StartOperation"])
+    for _, record in entry
+    if to_date(record.get("StartOperation")) is not None
+)
+
+    return min_start
+
 def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate, eng):
 
 
