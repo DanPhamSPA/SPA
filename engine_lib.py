@@ -104,7 +104,7 @@ def find_min_owner(labeled_engines, visit_key="FirstVisit"):
     return min(candidates) if candidates else None
 
 
-def determineOffset(min, listAC, spareList): #Sorting helps 
+def determineOffset(Purpose, listAC, spareList): #Sorting helps 
     #Always eng 1
     remaining = [(msn, eng, d) for msn, eng, d in spareList if msn != min[1]]
     

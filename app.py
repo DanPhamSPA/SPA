@@ -252,7 +252,7 @@ if uploaded: #Uploaded excel file update
                     StaggingMonth = st.number_input("Start Month Stagging", min_value=1, max_value=12, step=1, value=1)
 
 
-        ShopVisitPurpose = st.selectbox("Shop Visit Scope", ["FirstVist", "Engine Performance Restoration 2", "LLPs"])
+        ShopVisitPurpose = st.selectbox("Shop Visit Scope", ["Engine Performance Restoration 1", "Engine Performance Restoration 2", "LLPs"])
 
     with col10:
         CleanStagging = st.selectbox("Cleaning Option", ["Manual", "Automatic"])
@@ -324,6 +324,11 @@ if uploaded: #Uploaded excel file update
         st.session_state.excel_bytes = out.getvalue()
 
 
+    dictPurpose = {
+        "Engine Performance Restoration 1": "FirstVisit", 
+        "Engine Performance Restoration 2": "SecondVisit", 
+        "LLPs": "ThirdVisit",
+    }
     
     with st3:
         #Find initial first earliest forecast:
@@ -331,8 +336,8 @@ if uploaded: #Uploaded excel file update
 
         if st.button("Finalise schedule"):
             st.write("Spare1 preview:", Spare1)
-            index = find_min_owner(Spare1, "FirstVisit")
-            remaining = determineOffset(index, listShort, Spare1)
+            #index = find_min_owner(Spare1, "FirstVisit")
+            remaining = determineOffset(dictPurpose.get(ShopVisitPurpose), listShort, Spare1)
             st.success(remaining)
             #st.success(index)
 
