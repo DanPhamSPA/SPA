@@ -327,11 +327,11 @@ if uploaded: #Uploaded excel file update
 
 
     
-    with st4:
+    with st3:
         #Find initial first earliest forecast:
         #Engine ???? Pair Eng 2: return the earliest (index of)
 
-        if st.button("Engine Stagging Forecast"):
+        if st.button("Finalise schedule"):
             index = findStart(Spare1, ShopVisitPurpose)
             st.success("Ealier date " + str(index))
         
