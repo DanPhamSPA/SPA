@@ -221,7 +221,7 @@ if uploaded: #Uploaded excel file update
    
     st.subheader("Stagging cycle forecast")
     col31, col32, col33= st.columns(3)
-    col41 = st.columns(1)
+    col41,col42 = st.columns(2)
     #Button stagging
     st1, st2  = st.columns(2)
     with col9:
@@ -249,19 +249,20 @@ if uploaded: #Uploaded excel file update
     
 
     with col31: 
-        cycleEGTM = st.number_input("Remaining Cycle based on EGTM ", min_value=0, step=1000, value=9000)
-        cycleRemainingTarget = st.number_input("Remaining Cycle based on Target Run ", min_value=0, step=1000, value=9000)
-        cycleBasedOnFan = st.number_input("Lowest LLP remaining for the Fan", min_value=0, step=1000, value=9000)
+        cycleEGTM = st.number_input("Remaining Cycle EGTM 1", min_value=0, step=1000, value=9000)
+        cycleRemainingTarget = st.number_input("Remaining Cycle Target Run 1", min_value=0, step=1000, value=9000)
+        cycleBasedOnFan = st.number_input("Lowest LLP remaining Fan 1", min_value=0, step=1000, value=9000)
 
     with col32: 
-        cycleEGTM2 = st.number_input("Remaining Cycle based on EGTM 2", min_value=0, step=1000, value=9000)
-        cycleRemainingTarget2 = st.number_input("Remaining Cycle based on Target Run 2", min_value=0, step=1000, value=9000)
-        cycleBasedOnFan2 = st.number_input("Lowest LLP remaining for the Fan 2", min_value=0, step=1000, value=9000)
+        cycleEGTM2 = st.number_input("Remaining Cycle EGTM 2", min_value=0, step=1000, value=9000)
+        cycleRemainingTarget2 = st.number_input("Remaining Cycle Target Run 2", min_value=0, step=1000, value=9000)
+        cycleBasedOnFan2 = st.number_input("Lowest LLP remaining Fan 2", min_value=0, step=1000, value=9000)
 
     with col33: 
-        cycleEGTMllp = st.number_input("Remaining Cycle based on EGTM LLP", min_value=0, step=1000, value=9000)
-        cycleRemainingTargetllp = st.number_input("Remaining Cycle based on Target Run LLP", min_value=0, step=1000, value=9000)
-        cycleBasedOnFanllp = st.number_input("Lowest LLP remaining for the Fan LLP", min_value=0, step=1000, value=9000)
+        cycleEGTMllp = st.number_input("Remaining Cycle EGTM LLP", min_value=0, step=1000, value=9000)
+        cycleRemainingTargetllp = st.number_input("Remaining Cycle Target Run LLP", min_value=0, step=1000, value=9000)
+        cycleBasedOnFanllp = st.number_input("Lowest LLP remaining Fan LLP", min_value=0, step=1000, value=9000)
+
 
     with col41:
         SetFactor = st.number_input("Average cycle per day", min_value=1.0, step=0.1, value=5.0)
