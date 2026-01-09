@@ -218,7 +218,7 @@ if uploaded: #Uploaded excel file update
     col9, col10, = st.columns(2)
    
     st.subheader("Stagging cycle forecast")
-    col31, col32, col33, col34 = st.columns(4)
+    col31, col32, col33 = st.columns(3)
     #Button stagging
     st1, st2  = st.columns(2)
     with col9:
