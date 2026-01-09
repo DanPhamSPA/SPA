@@ -76,8 +76,8 @@ def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate):
 
 
     listAC[MSN]["Eng1"]["FirstVisit"] = selectedDate + timedelta(days=Forecast_Delta1+ ShopVisit_days)
-    listAC[MSN]["Eng1"]["SecondVisit"] =  listAC[MSN]["FirstVisit"] + timedelta(days=Forecast_Delta2 + ShopVisit_days)
-    listAC[MSN]["Eng1"]["ThirdVisit"] = listAC[MSN]["SecondVisit"] + timedelta(days=Forecast_Delta3 + ShopVisit_days)
+    listAC[MSN]["Eng1"]["SecondVisit"] =  listAC[MSN]["Eng1"]["FirstVisit"] + timedelta(days=Forecast_Delta2 + ShopVisit_days)
+    listAC[MSN]["Eng1"]["ThirdVisit"] = listAC[MSN]["Eng1"]["SecondVisit"] + timedelta(days=Forecast_Delta3 + ShopVisit_days)
     
     
 
