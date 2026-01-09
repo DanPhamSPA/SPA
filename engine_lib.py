@@ -35,10 +35,23 @@ ENGINE_OFFSET = {
 }
 
 ShopVisitConvert = {
-    "Engine Performance Restoration": 0,
+    "Engine Performance Restoration 1": 0,
+    "Engine Performance Restoration 2": 1,
     "LLPs": 2
 }
 
+def updateVisit(MSN, index,list, endDate):
+    if index == 0:
+        list.get(MSN).get("FirstVist") = endDate
+    if index == 1:
+        list.get(MSN).get("SecondVisit") = endDate
+    else:    
+        list.get(MSN).get("ThirdVisit") = endDate
+
+
+
+
+    return
 
 def getVisit(entry):
     return ShopVisitConvert.get(entry)
