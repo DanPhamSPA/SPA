@@ -103,11 +103,16 @@ def find_min_owner(labeled_engines, visit_key="FirstVisit"):
 
     return min(candidates) if candidates else None
 
+
 def determineOffset(min, listAC, spareList):
     #Always eng 1
     remaining = [(msn, eng, d) for msn, eng, d in spareList if msn != min[1]]
+    FirstMSN =  min[1]
+    SecondMSN = remaining[0]
 
-    return remaining
+    #adjustDateEng1 = 
+
+    return SecondMSN
 
 
 def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate, eng):
