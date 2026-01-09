@@ -275,7 +275,7 @@ if uploaded: #Uploaded excel file update
                 PlanSchedule(selected_msn, ws, listShort, 300, eng)
                 End_Date = selected_date + timedelta(days=Forecast_Delta)
                 st.success("MSN " + str(selected_msn) + " forecast date " + str(End_Date) + " Successfully added " + str(getIndex))
-                st.success("Automatic Stagging mode updated")
+                st.success("Automatic Stagging mode updated " + str(listShort.get(selected_msn)))
             if OptionStagging == "Manual":
                 PlanShopDate(selected_msn, 6, StaggingMonth, StaggingYear, listShort, ws, eng)
                 st.success("Manual Stagging mode updated")
