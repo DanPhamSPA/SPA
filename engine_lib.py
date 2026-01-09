@@ -41,12 +41,18 @@ ShopVisitConvert = {
 }
 
 def updateVisit(MSN, index,listAC, endDate):
+
+    if MSN not in listAC:
+        raise KeyError(f"MSN {MSN} not found in aircraft list")
+
     if index == 0:
-        listAC.get(MSN).get("FirstVisit") = endDate
-    if index == 1:
-        listAC.get(MSN).get("SecondVisit") = endDate
-    else:    
-        listAC.get(MSN).get("ThirdVisit") = endDate
+        listAC[MSN]["FirstVisit"] = endDate
+    elif index == 1:
+        listAC[MSN]["SecondVisit"] = endDate
+    elif index == 2:
+        listAC[MSN]["ThirdVisit"] = endDate
+    else:
+        raise ValueError("index must be 0, 1, or 2")
 
 
 
