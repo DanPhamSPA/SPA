@@ -291,12 +291,13 @@ if uploaded: #Uploaded excel file update
 
     #getIndex = getVisit(ShopVisitPurpose) 
     First = list(listShort.items())
+    
     if len(First) >= 2:
 
-        Spare1 = [First[0]["Eng1"], First[0]["Eng2"], First[1]["Eng1"], First[1]["Eng2"]]
+        Spare1 = dict(First[:2])
 
     else: 
-        Spare1 = [First[0]["Eng1"], First[0]["Eng2"]]
+        Spare1 = dict(First[:1])
 
 
     with st1: 
