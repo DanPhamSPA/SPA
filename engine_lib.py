@@ -61,22 +61,25 @@ ShopVisitConvert = {
 }
 #To deate method/function
 def to_date(x):
+    if isinstance(x, datetime):
+        return x.date()
     if isinstance(x, date):
         return x
     if isinstance(x, str) and x:
         return datetime.fromisoformat(x).date()
     return None
 
-
-
-def findStart(entry, ShopPurpose):
-    min_start = min(
-    to_date(record["FirstVisit"])
-    for _, record in entry
-    if to_date(record.get("FirstVisit")) is not None
-)
-
-    return min_start
+def findStart(entry, visit_key="FirstVisit"):
+    """
+    entry: list of dicts (e.g., [Eng1_dict, Eng2_dict, ...])
+    Returns earliest date among entry[*][visit_key]
+    """
+    dates = [
+        to_date(d.get(visit_key))
+        for d in entry
+        if isinstance(d, dict) and to_date(d.get(visit_key)) is not None and d.get(visit_key) not in (0, "", None)
+    ]
+    return min(dates) if dates else None
 
 def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate, eng):
 
