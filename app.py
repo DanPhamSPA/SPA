@@ -265,6 +265,8 @@ if uploaded: #Uploaded excel file update
     #Selected date started 
 
     getIndex = getVisit(ShopVisitPurpose) 
+    if listShort.get(selected_msn).get("ShopVisit") == 1:
+        getIndex += 1
             
 
     with st1: 
