@@ -105,7 +105,7 @@ def find_min_owner(labeled_engines, visit_key="FirstVisit"):
 
 def determineOffset(min, listAC, spareList):
     #Always eng 1
-    remaining = [(msn, eng, d) for msn, eng, d in spareList if msn != min]
+    remaining = [(msn, eng, d) for msn, eng, d in spareList if msn != min[1]]
 
     return remaining
 
