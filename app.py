@@ -339,6 +339,7 @@ if uploaded: #Uploaded excel file update
         #Engine ???? Pair Eng 2: return the earliest (index of)
 
         if st.button("Finalise schedule"):
+            st.write("Spare1 preview:", Spare1)
             index = findStart(Spare1, ShopVisitPurpose)
             st.success("Ealier date " + str(index))
         
