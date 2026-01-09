@@ -79,6 +79,7 @@ def findStart(entry, visit_key="FirstVisit"):
         for d in entry
         if isinstance(d, dict) and to_date(d.get(visit_key)) is not None and d.get(visit_key) not in (0, "", None)
     ]
+    print (dates)
     return min(dates) if dates else None
 
 def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate, eng):
