@@ -40,24 +40,24 @@ ShopVisitConvert = {
     "LLPs": 2
 }
 
-def updateVisit(MSN, index,listAC, endDate, Forecast_Delta):
+def updateVisit(MSN,listAC, listVisit, SetFactor):
+
+
+    Forecast_Delta1 = min(listVisit[0][0], listVisit[0][0], listVisit[0][0])/SetFactor
+    Forecast_Delta2 = min(listVisit[0][0], listVisit[0][0], listVisit[0][0])/SetFactor
+    Forecast_Delta3 = min(listVisit[0][0], listVisit[0][0], listVisit[0][0])/SetFactor
+
     #Assumption is that the next start forecas the last of previous shop visit limit + Forecast time 
     
     if MSN not in listAC:
         raise KeyError(f"MSN {MSN} not found in aircraft list")
 
-    if index == 0:
-        listAC[MSN]["FirstVisit"] = endDate
-        listAC[MSN]["SecondVisit"] =  listAC[MSN]["FirstVisit"] + timedelta(days=Forecast_Delta)
-        listAC[MSN]["ThirdVisit"] = listAC[MSN]["SecondVisit"] + timedelta(days=Forecast_Delta)
-    elif index == 1:
-        listAC[MSN]["SecondVisit"] =  listAC[MSN]["FirstVisit"] + timedelta(days=Forecast_Delta)
-        listAC[MSN]["ThirdVisit"] = listAC[MSN]["SecondVisit"] + timedelta(days=Forecast_Delta)
-    elif index == 2:
-        listAC[MSN]["ThirdVisit"] = listAC[MSN]["SecondVisit"] + timedelta(days=Forecast_Delta)
-    else:
-        raise ValueError("index must be 0, 1, or 2")
-
+  
+    listAC[MSN]["FirstVisit"] = listAC[MSN]["StartOperation"] + timedelta(days=Forecast_Delta1)
+    listAC[MSN]["SecondVisit"] =  listAC[MSN]["FirstVisit"] + timedelta(days=Forecast_Delta2)
+    listAC[MSN]["ThirdVisit"] = listAC[MSN]["SecondVisit"] + timedelta(days=Forecast_Delta3)
+    
+    
 
 
 
@@ -108,7 +108,7 @@ def addNewEngine(MSN, Eng1, Eng2):
     #Schedule1 = np.zeros((10, 12))
     #Schedule2 = np.zeros((10, 12))
 
-    newEntry = {MSN:{Eng1:{"CycleR":100, "Schedule": 1}, 
+    newEntry = {MSN:{Eng1:{"CycleR":100, "Schedule": 1},"StartOperation":0, 
                      Eng2:{"CycleR":0, "Schedule": 1}, "ShopVisit": 1, "FirstVisit":0,
                      "SecondVisit":0, "ThirdVisit":0}}
 

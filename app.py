@@ -50,7 +50,13 @@ if uploaded: #Uploaded excel file update
         eng = st.selectbox("Engine Position", ["Eng1", "Eng2"])
     with col2:
         selected_date = st.date_input("Operation start month",value=date.today(),format="DD/MM/YYYY")
-        
+
+
+
+    
+
+
+
         #month = st.number_input("Operation start month", min_value=1, max_value=12, step=1, value=1)
     with col3:
         cycle_plan = st.number_input("Target Run", min_value=0, step=1000, value=9000)
@@ -114,7 +120,7 @@ if uploaded: #Uploaded excel file update
         #st.success("MSN " + str(msn) + " Successfully added")
         st.session_state.excel_bytes = out.getvalue()
 
-
+    
     st.write("")
     st.write("")
     
@@ -211,7 +217,9 @@ if uploaded: #Uploaded excel file update
         if st.button("Clean Schedule"):
             st.success("Plan applied (replace TODO with your function).")
         
-    
+    #Update operation date
+    listShort[selected_msn]["StartOperation"]   = selected_date
+
 
     st.write("")
     st.write("")
@@ -269,13 +277,16 @@ if uploaded: #Uploaded excel file update
         #SetFactor1 = st.number_input("Average cycle per day 2", min_value=1.0, step=0.1, value=6.0)
 
     #Get forcast date after update
-    Forecast_Delta = min(cycleBasedOnFan, cycleEGTM, cycleRemainingTarget)/SetFactor
+    
 
+    InputShop1 = [cycleEGTM, cycleRemainingTarget, cycleBasedOnFan]
+    InputShop2 = [cycleEGTM2, cycleRemainingTarget2, cycleBasedOnFan2]
+    InputShopLLp = [cycleEGTMllp, cycleRemainingTargetllp, cycleBasedOnFanllp]
 
-
+    ListInputForecast = [InputShop1, InputShop2, InputShopLLp]
     #Selected date started 
 
-    getIndex = getVisit(ShopVisitPurpose) 
+    #getIndex = getVisit(ShopVisitPurpose) 
     
 
 
@@ -284,12 +295,12 @@ if uploaded: #Uploaded excel file update
             if OptionStagging == "Automatic":
                 PlanSchedule(selected_msn, ws, listShort, 300, eng) #Case nULL no vist
                 
-                endDate = selected_date + timedelta(days=Forecast_Delta)
+                #endDate = selected_date + timedelta(days=Forecast_Delta)
 
-                updateVisit(selected_msn, getIndex, listShort, endDate, Forecast_Delta)
+                updateVisit(selected_msn, listShort, ListInputForecast, SetFactor)
 
                 
-                st.success("MSN " + str(selected_msn) + " forecast date " + str(endDate) + " Successfully added " + str(getIndex))
+                st.success("MSN " + str(selected_msn) + " forecast date Successfully added " + str(getIndex))
                 st.success("Automatic Stagging mode updated " + str(listShort.get(selected_msn)))
             if OptionStagging == "Manual":
                 PlanShopDate(selected_msn, 6, StaggingMonth, StaggingYear, listShort, ws, eng)
