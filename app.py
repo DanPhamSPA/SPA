@@ -293,10 +293,10 @@ if uploaded: #Uploaded excel file update
     First = list(listShort.items())
     if len(First) >= 2:
 
-        Spare1 = [First[0], First[1]]
+        Spare1 = [First[0]["Eng1"], First[0]["Eng2"], First[1]["Eng1"], First[1]["Eng2"]]
 
     else: 
-        Spare1 = First[0]
+        Spare1 = [First[0]["Eng1"], First[0]["Eng2"]]
 
 
     with st1: 

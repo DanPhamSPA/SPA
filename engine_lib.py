@@ -71,9 +71,9 @@ def to_date(x):
 
 def findStart(entry, ShopPurpose):
     min_start = min(
-    to_date(record["StartOperation"])
+    to_date(record["FirstVisit"])
     for _, record in entry
-    if to_date(record.get("StartOperation")) is not None
+    if to_date(record.get("FirstVisit")) is not None
 )
 
     return min_start
