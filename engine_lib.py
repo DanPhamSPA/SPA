@@ -116,10 +116,11 @@ def determineOffset(Purpose, listAC, spareList): #Sorting helps
     second = sorted_engines[1]
     third  = sorted_engines[2]
     forth = sorted_engines[3]
+    
 
     adjustDateEng1 = [first, second, third, forth]
 
-    return adjustDateEng1
+    return first
 
 
 def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate, eng):
