@@ -290,7 +290,7 @@ if uploaded: #Uploaded excel file update
 
     #getIndex = getVisit(ShopVisitPurpose) 
     First = list(listShort.items())
-    Spare1 = {First[0], First[1]}
+    Spare1 = {First[0]}
 
 
     with st1: 
