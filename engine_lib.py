@@ -6,7 +6,7 @@ from openpyxl.styles import Alignment,Font
 from ExcelRule import RedFillCell, Redfill, CleanFill
 import json
 import os
-
+from datetime import timedelta
 AIRCRAFT_JSON = "aircraft.json"
 EXPECTED_LOSS = 1800
 DESIRED_CYCLE = 9000 
@@ -40,17 +40,18 @@ ShopVisitConvert = {
     "LLPs": 2
 }
 
-def updateVisit(MSN, index,listAC, endDate):
-
+def updateVisit(MSN, index,listAC, endDate, Forecast_Delta):
+    
+    
     if MSN not in listAC:
         raise KeyError(f"MSN {MSN} not found in aircraft list")
 
     if index == 0:
         listAC[MSN]["FirstVisit"] = endDate
     elif index == 1:
-        listAC[MSN]["SecondVisit"] = listAC[MSN]["FirstVisit"] + endDate
+        listAC[MSN]["SecondVisit"] =  listAC[MSN]["FirstVisit"] + timedelta(days=Forecast_Delta)
     elif index == 2:
-        listAC[MSN]["ThirdVisit"] = listAC[MSN]["SecondVisit"] + endDate
+        listAC[MSN]["ThirdVisit"] = listAC[MSN]["SecondVisit"] + timedelta(days=Forecast_Delta)
     else:
         raise ValueError("index must be 0, 1, or 2")
 

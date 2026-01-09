@@ -271,10 +271,11 @@ if uploaded: #Uploaded excel file update
     with st1: 
         if st.button("Engine Stagging Forecast"):
             if OptionStagging == "Automatic":
-                PlanSchedule(selected_msn, ws, listShort, 300, eng)
+                PlanSchedule(selected_msn, ws, listShort, 300, eng) #Case nULL no vist
+                
                 endDate = selected_date + timedelta(days=Forecast_Delta)
 
-                updateVisit(selected_msn, getIndex, listShort, endDate)
+                updateVisit(selected_msn, getIndex, listShort, endDate, Forecast_Delta)
 
                 
                 st.success("MSN " + str(selected_msn) + " forecast date " + str(endDate) + " Successfully added " + str(getIndex))
