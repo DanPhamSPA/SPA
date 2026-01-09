@@ -60,6 +60,9 @@ ShopVisitConvert = {
     "LLPs": 2
 }
 
+def findStart(entry, ShopPurpose):
+    earliest = min(v[ShopPurpose] for v in entry.values())
+    return earliest
 def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate, eng):
 
 

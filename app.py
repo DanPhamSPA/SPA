@@ -5,7 +5,7 @@ from engine_lib import load_aircraft_dict, save_aircraft_dict, terminate_list
 
 from openpyxl import load_workbook
 from engine_lib import addNewEngine, getEngine, getAircraft, editExcel, getCell, addSchedule, getTail, rangeSchedule
-from engine_lib import PlanShopDate, PlanSchedule, row_for, cleanSchedule, getVisit, updateVisit
+from engine_lib import PlanShopDate, PlanSchedule, row_for, cleanSchedule, getVisit, updateVisit, findStart
 from ExcelRule import RedFillCell, configureFormat
 from datetime import datetime, timedelta
 import os
@@ -234,6 +234,7 @@ if uploaded: #Uploaded excel file update
     col41,col42 = st.columns(2)
     #Button stagging
     st1, st2  = st.columns(2)
+    st3, st4  = st.columns(2)
     with col9:
 
         OptionStagging = st.selectbox("Stagging Option", ["Automatic", "Manual"])
@@ -290,7 +291,12 @@ if uploaded: #Uploaded excel file update
 
     #getIndex = getVisit(ShopVisitPurpose) 
     First = list(listShort.items())
-    Spare1 = [First[0]]
+    if len(First) >= 2:
+
+        Spare1 = [First[0], First[1]]
+
+    else: 
+        Spare1 = First[0]
 
 
     with st1: 
@@ -306,9 +312,30 @@ if uploaded: #Uploaded excel file update
                 st.success("MSN " + str(selected_msn) + " forecast date Successfully added ")
                 st.success("Automatic Stagging mode updated " + str(listShort.get(selected_msn)))
                 st.success(str(Spare1))
+
             if OptionStagging == "Manual":
                 PlanShopDate(selected_msn, 6, StaggingMonth, StaggingYear, listShort, ws, eng)
                 st.success("Manual Stagging mode updated")
+        
+
+        out = BytesIO()
+        wb.save(out)
+        
+        out.seek(0)
+        #st.success("MSN " + str(msn) + " Successfully added")
+        st.session_state.excel_bytes = out.getvalue()
+
+
+    
+    with st4:
+        #Find initial first earliest forecast:
+        #Engine ???? Pair Eng 2: return the earliest (index of)
+
+        if st.button("Engine Stagging Forecast"):
+            index = findStart(Spare1)
+            st.success("Ealier date " + str(index))
+        
+
 
 
         out = BytesIO()
@@ -317,7 +344,7 @@ if uploaded: #Uploaded excel file update
         out.seek(0)
         #st.success("MSN " + str(msn) + " Successfully added")
         st.session_state.excel_bytes = out.getvalue()
-    
+
 
 
 
