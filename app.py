@@ -276,7 +276,7 @@ if uploaded: #Uploaded excel file update
 
                 updateVisit(selected_msn, getIndex, listShort, endDate)
 
-                listShort.get(selected_msn).get("")
+                
                 st.success("MSN " + str(selected_msn) + " forecast date " + str(endDate) + " Successfully added " + str(getIndex))
                 st.success("Automatic Stagging mode updated " + str(listShort.get(selected_msn)))
             if OptionStagging == "Manual":
