@@ -119,7 +119,7 @@ def determineOffset(Purpose, listAC, spareList): #Sorting helps
     
     #Removing adjustment 
 
-    
+    first["FirstRemove"] = first["FirstVisit"] - timedelta(days=120)
 
     #adjustDateEng1 = [first, second, third, forth]
 
