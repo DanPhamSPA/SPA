@@ -141,8 +141,23 @@ if uploaded: #Uploaded excel file update
     spare_options = SpareEngineUpdate or ["-- No spares available --"]
     col5, col6 = st.columns(2)
 
+    First = list(listShort.items())
+    Spare1 = []
+    #for msn, rec in First[:2]:       # first 2 aircraft (adjust if needed)
+    #    Spare1.append((msn, "Eng1", rec["Eng1"]))
+    #    Spare1.append((msn, "Eng2", rec["Eng2"]))
 
+   
+    MSN1 = []
+    
+    for msn, rec in First[-2:]:     
+        MSN1.append(msn)  # ADDing the tail every 2 MSN added
+        Spare1.append((msn, "Eng1", rec["Eng1"]))
+        Spare1.append((msn, "Eng2", rec["Eng2"]))
 
+        if len(MSN1) == 2:
+            NewSpare = addSpare(MSN1[0], MSN1[1], "ID1")  # or increment ID
+            MSN1.clear()  
 
 
     #Schuedule options
@@ -300,25 +315,14 @@ if uploaded: #Uploaded excel file update
     #Selected date started 
 
     #getIndex = getVisit(ShopVisitPurpose) 
-    First = list(listShort.items())
-    Spare1 = []
+    
+    
     #for msn, rec in First[:2]:       # first 2 aircraft (adjust if needed)
     #    Spare1.append((msn, "Eng1", rec["Eng1"]))
     #    Spare1.append((msn, "Eng2", rec["Eng2"]))
 
    
-    MSN = []
     
-    for msn, rec in First[-2:]:     
-        MSN.append(msn)  # ADDing the tail every 2 MSN added
-        Spare1.append((msn, "Eng1", rec["Eng1"]))
-        Spare1.append((msn, "Eng2", rec["Eng2"]))
-
-        if len(MSN) == 2:
-            NewSpare = addSpare(MSN[0], MSN[1], "ID1")  # or increment ID
-            MSN.clear()  
-
-        #NewSpare = addSpare(MSN[0], MSN[1], "ID1")
     
     with st1: 
         if st.button("Engine Stagging Forecast"):
