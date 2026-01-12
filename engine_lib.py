@@ -136,7 +136,7 @@ def determineOffset(PurposeDictionary, listAC, spareList): #Sorting helps
         indexMSN = sorted_engines[n][0]
         indexEngine = sorted_engines[n][1]
 
-        listAC[indexMSN][indexEngine]["FirstRemove"] = listAC[indexMSN]indexEngine]["FirstVisit"] +  timedelta(days=offsetDate)
+        listAC[indexMSN][indexEngine]["FirstRemove"] = listAC[indexMSN][indexEngine]["FirstVisit"] +  timedelta(days=offsetDate)
 
     #
     # listAC[IndexMSN][IndexEngine]["FirstRemove"] = listAC[IndexMSN][IndexEngine]["FirstVisit"] +  timedelta(days=offsetDate)
