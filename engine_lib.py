@@ -113,11 +113,17 @@ def resetForeCast(listAC, sorted_engines):
         listAC[indexMSN][indexEngine]["FirstRemove"] = 0
 
     return 
+def resetSchedule(listAC, sorted_engines):
 
+
+    return
 def determineOffset(PurposeDictionary, listAC, spareList): #Sorting helps 
     #Always eng 1
     #remaining = [(msn, eng, d) for msn, eng, d in spareList if msn != list[1]]
     #offsetDate = ShopVisit1.get("Engine" + str(1))
+    resetForeCast(listAC, sorted_engines)
+    
+    
     sorted_engines = sorted(spareList,
     key=lambda x: to_date(x[2].get("FirstVisit"))
     )
@@ -128,7 +134,7 @@ def determineOffset(PurposeDictionary, listAC, spareList): #Sorting helps
     #listAC[IndexMSN][IndexEngine]["FirstRemove"] = listAC[IndexMSN][IndexEngine]["FirstVisit"] - timedelta(days=120)
 
  
-    resetForeCast(listAC, sorted_engines)
+    
     #Adjustment added from removal. 
 
     for n in range(4):
@@ -161,7 +167,7 @@ def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate, eng):
     Forecast_Delta3 = min(listVisit[2][0], listVisit[2][1], listVisit[2][2])/SetFactor
 
 
-    listAC[MSN][eng]["FirstVisit"] = selectedDate + timedelta(days=Forecast_Delta1)
+    listAC[MSN][eng]["FirstVisit"] = listAC[MSN][eng]["StartOperation"] + timedelta(days=Forecast_Delta1)
     listAC[MSN][eng]["SecondVisit"] =  listAC[MSN][eng]["FirstVisit"] + timedelta(days=Forecast_Delta2)
     listAC[MSN][eng]["ThirdVisit"] = listAC[MSN][eng]["SecondVisit"] + timedelta(days=Forecast_Delta3)
     
