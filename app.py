@@ -304,10 +304,16 @@ if uploaded: #Uploaded excel file update
     #getIndex = getVisit(ShopVisitPurpose) 
     First = list(listShort.items())
     Spare1 = []
-    for msn, rec in First[:2]:       # first 2 aircraft (adjust if needed)
-        Spare1.append((msn, "Eng1", rec["Eng1"]))
-        Spare1.append((msn, "Eng2", rec["Eng2"]))
+    #for msn, rec in First[:2]:       # first 2 aircraft (adjust if needed)
+    #    Spare1.append((msn, "Eng1", rec["Eng1"]))
+    #    Spare1.append((msn, "Eng2", rec["Eng2"]))
 
+    if (len(SpareEngineUpdate) * 2) == len(listShort):
+        for msn, rec in First[-2:]:       # ADDing the tail every 2 MSN added
+            Spare1.append((msn, "Eng1", rec["Eng1"]))
+            Spare1.append((msn, "Eng2", rec["Eng2"]))
+
+    
     with st1: 
         if st.button("Engine Stagging Forecast"):
             if OptionStagging == "Automatic":
