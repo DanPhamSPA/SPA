@@ -117,8 +117,11 @@ def determineOffset(Purpose, listAC, spareList): #Sorting helps
     third  = sorted_engines[2]
     forth = sorted_engines[3]
     
+    #Removing adjustment 
 
-    adjustDateEng1 = [first, second, third, forth]
+    
+
+    #adjustDateEng1 = [first, second, third, forth]
 
     return first
 
@@ -142,6 +145,7 @@ def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate, eng):
     listAC[MSN][eng]["SecondVisit"] =  listAC[MSN][eng]["FirstVisit"] + timedelta(days=Forecast_Delta2)
     listAC[MSN][eng]["ThirdVisit"] = listAC[MSN][eng]["SecondVisit"] + timedelta(days=Forecast_Delta3)
     
+    #Removal Date,
     
 
     return
@@ -201,8 +205,13 @@ def addNewEngine(MSN, Eng1, Eng2):
     #Schedule2 = np.zeros((10, 12))
 
     newEntry = {MSN:{
-                Eng1:{"CycleR":100, "Schedule": 1, "ShopVisit": 1, "FirstVisit":0, "SecondVisit":0, "ThirdVisit":0},
-                Eng2:{"CycleR":0, "Schedule": 1, "ShopVisit": 1, "FirstVisit":0,"SecondVisit":0, "ThirdVisit":0}
+                Eng1:{"CycleR":100, "Schedule": 1, "ShopVisit": 1, "FirstVisit":0, "SecondVisit":0, "ThirdVisit":0
+                      , "FirstRemove": 0, "SecondRemove": 0, "ThirdRemove":0},
+
+                Eng2:{"CycleR":0, "Schedule": 1, "ShopVisit": 1, "FirstVisit":0,"SecondVisit":0, "ThirdVisit":0
+                      , "FirstRemove": 0, "SecondRemove": 0, "ThirdRemove":0}
+                
+                
                 ,"StartOperation":0}
     }
     #Schedule1[0][0] = 120
