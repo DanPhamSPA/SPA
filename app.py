@@ -137,7 +137,7 @@ if uploaded: #Uploaded excel file update
     #SpareEngineList = st.session_state.SpareList = []
     
 
-    SpareEngineUpdate = list(st.session_state.SpareEngineList)
+    SpareEngineUpdate = list(st.session_state.SpareEngineList.keys())
     spare_options = SpareEngineUpdate or ["-- No spares available --"]
     col5, col6 = st.columns(2)
 
