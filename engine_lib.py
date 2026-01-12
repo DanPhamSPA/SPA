@@ -118,12 +118,18 @@ def determineOffset(Purpose, listAC, spareList): #Sorting helps
     forth = sorted_engines[3]
     
     #Removing adjustment 
+    #Index MSN = first[0]
+    #Index Engine = first[1]
+    IndexMSN = first[0]
+    IndexEngine = first[1]
 
-    first["FirstRemove"] = first["FirstVisit"] - timedelta(days=120)
+    listAC[IndexMSN][IndexEngine]["FirstRemove"] = listAC[IndexMSN][IndexEngine]["FirstVisit"] - timedelta(days=120)
+
+    #irst["FirstRemove"] = first["FirstVisit"] - timedelta(days=120)
 
     #adjustDateEng1 = [first, second, third, forth]
 
-    return first
+    return listAC[IndexMSN][IndexEngine]
 
 
 def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate, eng):
