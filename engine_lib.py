@@ -92,7 +92,9 @@ def to_date(x):
         return None
 
     return None
-
+def addSpare(MSN1, MSN2, SpareID):
+    newSpare = {SpareID:{MSN1, MSN2}}
+    return newSpare
 
 def find_min_owner(labeled_engines, visit_key="FirstVisit"):
     candidates = []

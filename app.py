@@ -4,7 +4,7 @@ from io import BytesIO
 from engine_lib import load_aircraft_dict, save_aircraft_dict, terminate_list
 
 from openpyxl import load_workbook
-from engine_lib import addNewEngine, getEngine, getAircraft, editExcel, getCell, addSchedule, getTail, rangeSchedule
+from engine_lib import addNewEngine, getEngine, getAircraft, editExcel, getCell, addSchedule, getTail, rangeSchedule, addSpare
 from engine_lib import PlanShopDate, PlanSchedule, row_for, cleanSchedule, getVisit, updateVisit, find_min_owner, determineOffset
 
 from ExcelRule import RedFillCell, configureFormat
@@ -309,10 +309,14 @@ if uploaded: #Uploaded excel file update
     #    Spare1.append((msn, "Eng2", rec["Eng2"]))
 
     if (len(SpareEngineUpdate) * 2) == len(listShort):
-        for msn, rec in First[-2:]:       # ADDing the tail every 2 MSN added
+        MSN = []
+        
+        for msn, rec in First[-2:]:     
+            MSN.append(msn)  # ADDing the tail every 2 MSN added
             Spare1.append((msn, "Eng1", rec["Eng1"]))
             Spare1.append((msn, "Eng2", rec["Eng2"]))
 
+        NewSpare = addSpare(MSN[0], MSN[1], "ID1")
     
     with st1: 
         if st.button("Engine Stagging Forecast"):
