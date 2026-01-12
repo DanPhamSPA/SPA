@@ -130,8 +130,13 @@ if uploaded: #Uploaded excel file update
     #MSN control
 
     st.subheader("Aircraft Information")
+
+
     msn_list = list(st.session_state.ListAirCraft.keys())
+    SpareEngineList = st.session_state.SpareList = []
     
+
+    SpareEngineUpdate = list(st.session_state.SpareEngineList)
     col5, col6 = st.columns(2)
 
 
@@ -150,6 +155,11 @@ if uploaded: #Uploaded excel file update
         index=0 if msn_list else None
         )
 
+        SelectSpare = st.selectbox(
+        "Select Spare",
+         options=SpareEngineUpdate,
+        index=0 if SpareEngineUpdate else None
+        )
         #st.success("Plan applied (replace TODO with your function).")
     
     with col6:
