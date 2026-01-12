@@ -106,7 +106,7 @@ def find_min_owner(labeled_engines, visit_key="FirstVisit"):
 def resetForeCast(listAC, sorted_engines):
 
     for n in range(4):
-        offsetDate = ShopVisit1.get("Engine" + str(n+1))
+        
         #Create offset delay 
         indexMSN = sorted_engines[n][0]
         indexEngine = sorted_engines[n][1]
@@ -121,14 +121,14 @@ def determineOffset(PurposeDictionary, listAC, spareList): #Sorting helps
     #Always eng 1
     #remaining = [(msn, eng, d) for msn, eng, d in spareList if msn != list[1]]
     #offsetDate = ShopVisit1.get("Engine" + str(1))
-    resetForeCast(listAC, sorted_engines)
     
+    resetForeCast(listAC, spareList)
     
     sorted_engines = sorted(spareList,
     key=lambda x: to_date(x[2].get("FirstVisit"))
     )
     #Removing adjustment 
-    
+   
     
 
     #listAC[IndexMSN][IndexEngine]["FirstRemove"] = listAC[IndexMSN][IndexEngine]["FirstVisit"] - timedelta(days=120)
