@@ -136,10 +136,13 @@ def determineOffset(PurposeDictionary, listAC, spareList): #Sorting helps
         #Create offset delay 
         indexMSN = sorted_engines[n][0]
         indexEngine = sorted_engines[n][1]
+
         listAC[IndexMSN][IndexEngine]["FirstRemove"] = listAC[IndexMSN][IndexEngine]["FirstVisit"] +  timedelta(days=offsetDate)
 
     #
     # listAC[IndexMSN][IndexEngine]["FirstRemove"] = listAC[IndexMSN][IndexEngine]["FirstVisit"] +  timedelta(days=offsetDate)
+
+    
     return listAC
 
 

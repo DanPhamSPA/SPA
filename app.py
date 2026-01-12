@@ -342,7 +342,7 @@ if uploaded: #Uploaded excel file update
             remaining = determineOffset(dictPurpose.get(ShopVisitPurpose), listShort, Spare1)
 
             st.success(remaining)
-            st.write("Spare1 preview:", Spare1)
+            st.write("Spare1 preview:", listShort)
             #st.success(index)
 
         
