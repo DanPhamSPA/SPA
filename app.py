@@ -157,6 +157,7 @@ if uploaded: #Uploaded excel file update
 
         if len(MSN1) == 2:
             NewSpare = addSpare(MSN1[0], MSN1[1], "ID1")  # or increment ID
+            SpareEngineUpdate.append(NewSpare)
             MSN1.clear()  
 
 
