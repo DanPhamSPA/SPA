@@ -138,6 +138,7 @@ if uploaded: #Uploaded excel file update
     
 
     SpareEngineUpdate = list(st.session_state.SpareEngineList)
+    spare_options = SpareEngineUpdate or ["-- No spares available --"]
     col5, col6 = st.columns(2)
 
 
@@ -156,11 +157,8 @@ if uploaded: #Uploaded excel file update
         index=0 if msn_list else None
         )
 
-        SelectSpare = st.selectbox(
-        "Select Spare",
-         options=SpareEngineUpdate,
-        index=0 if SpareEngineUpdate else None
-        )
+        
+        selected_spare = st.selectbox("Select Spare", options=spare_options)
         #st.success("Plan applied (replace TODO with your function).")
     
     with col6:
@@ -315,7 +313,7 @@ if uploaded: #Uploaded excel file update
         MSN.append(msn)  # ADDing the tail every 2 MSN added
         Spare1.append((msn, "Eng1", rec["Eng1"]))
         Spare1.append((msn, "Eng2", rec["Eng2"]))
-        
+
         if len(MSN) == 2:
             NewSpare = addSpare(MSN[0], MSN[1], "ID1")  # or increment ID
             MSN.clear()  
