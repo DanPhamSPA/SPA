@@ -106,7 +106,7 @@ def find_min_owner(labeled_engines, visit_key="FirstVisit"):
 
 def determineOffset(Purpose, listAC, spareList): #Sorting helps 
     #Always eng 1
-    remaining = [(msn, eng, d) for msn, eng, d in spareList if msn != min[1]]
+    #remaining = [(msn, eng, d) for msn, eng, d in spareList if msn != list[1]]
     
     sorted_engines = sorted(spareList,
     key=lambda x: to_date(x[2].get("FirstVisit"))
