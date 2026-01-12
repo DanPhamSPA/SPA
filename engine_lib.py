@@ -103,6 +103,16 @@ def find_min_owner(labeled_engines, visit_key="FirstVisit"):
 
     return min(candidates) if candidates else None
 
+def resetForeCast(listAC, sorted_engines):
+
+    for n in range(4):
+        offsetDate = ShopVisit1.get("Engine" + str(n+1))
+        #Create offset delay 
+        indexMSN = sorted_engines[n][0]
+        indexEngine = sorted_engines[n][1]
+        listAC[indexMSN][indexEngine]["FirstRemove"] = 0
+
+    return 
 
 def determineOffset(PurposeDictionary, listAC, spareList): #Sorting helps 
     #Always eng 1
@@ -111,22 +121,14 @@ def determineOffset(PurposeDictionary, listAC, spareList): #Sorting helps
     sorted_engines = sorted(spareList,
     key=lambda x: to_date(x[2].get("FirstVisit"))
     )
-
-    first  = sorted_engines[0]
-    second = sorted_engines[1]
-    third  = sorted_engines[2]
-    forth = sorted_engines[3]
-    
     #Removing adjustment 
     
     
 
     #listAC[IndexMSN][IndexEngine]["FirstRemove"] = listAC[IndexMSN][IndexEngine]["FirstVisit"] - timedelta(days=120)
 
-    #irst["FirstRemove"] = first["FirstVisit"] - timedelta(days=120)
-
-    #adjustDateEng1 = [first, second, third, forth]
-    
+ 
+    resetForeCast(listAC, sorted_engines)
     #Adjustment added from removal. 
 
     for n in range(4):
@@ -138,8 +140,7 @@ def determineOffset(PurposeDictionary, listAC, spareList): #Sorting helps
 
         listAC[indexMSN][indexEngine]["FirstRemove"] = listAC[indexMSN][indexEngine]["FirstVisit"] +  timedelta(days=offsetDate)
 
-    #
-    # listAC[IndexMSN][IndexEngine]["FirstRemove"] = listAC[IndexMSN][IndexEngine]["FirstVisit"] +  timedelta(days=offsetDate)
+    
 
 
     return  listAC
