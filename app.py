@@ -257,9 +257,9 @@ if uploaded: #Uploaded excel file update
     with col10:
         CleanStagging = st.selectbox("Cleaning Option", ["Manual", "Automatic"])
         
-
-    
-
+    #Startrt Op
+    listShort[selected_msn]["StartOperation"] = selected_date
+    StartOp = listShort[selected_msn]["StartOperation"]
     with col31: 
         cycleEGTM = st.number_input("Remaining Cycle EGTM 1", min_value=0, step=1000, value=9000)
         cycleRemainingTarget = st.number_input("Remaining Cycle Target Run 1", min_value=0, step=1000, value=9000)
@@ -307,9 +307,10 @@ if uploaded: #Uploaded excel file update
                 updateVisit(selected_msn, listShort, ListInputForecast, SetFactor, selected_date, eng)
 
                 
-                st.success("MSN " + str(selected_msn) + " forecast date Successfully added ")
-                st.success("Automatic Stagging mode updated " + str(listShort.get(selected_msn)))
-                st.success(str(Spare1))
+                st.success("MSN " + str(selected_msn) + " forecast date Successfully added "  )
+                st.success(str(StartOp))
+                #st.success("Automatic Stagging mode updated " + str(listShort.get(selected_msn)))
+                #st.success(str(Spare1))
 
             if OptionStagging == "Manual":
                 PlanShopDate(selected_msn, 6, StaggingMonth, StaggingYear, listShort, ws, eng)
