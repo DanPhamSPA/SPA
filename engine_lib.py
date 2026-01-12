@@ -118,10 +118,8 @@ def determineOffset(PurposeDictionary, listAC, spareList): #Sorting helps
     forth = sorted_engines[3]
     
     #Removing adjustment 
-    #Index MSN = first[0]
-    #Index Engine = first[1]
-    IndexMSN = first[0]
-    IndexEngine = first[1]
+    
+    
 
     #listAC[IndexMSN][IndexEngine]["FirstRemove"] = listAC[IndexMSN][IndexEngine]["FirstVisit"] - timedelta(days=120)
 
@@ -132,18 +130,19 @@ def determineOffset(PurposeDictionary, listAC, spareList): #Sorting helps
     #Adjustment added from removal. 
 
     for n in range(4):
+
         offsetDate = ShopVisit1.get("Engine" + str(n+1))
         #Create offset delay 
         indexMSN = sorted_engines[n][0]
         indexEngine = sorted_engines[n][1]
 
-        listAC[IndexMSN][IndexEngine]["FirstRemove"] = listAC[IndexMSN][IndexEngine]["FirstVisit"] +  timedelta(days=offsetDate)
+        listAC[indexMSN][indexEngine]["FirstRemove"] = listAC[indexMSN]indexEngine]["FirstVisit"] +  timedelta(days=offsetDate)
 
     #
     # listAC[IndexMSN][IndexEngine]["FirstRemove"] = listAC[IndexMSN][IndexEngine]["FirstVisit"] +  timedelta(days=offsetDate)
 
-    
-    return listAC
+
+    return  listAC
 
 
 def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate, eng):
