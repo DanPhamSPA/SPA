@@ -104,7 +104,7 @@ def find_min_owner(labeled_engines, visit_key="FirstVisit"):
     return min(candidates) if candidates else None
 
 
-def determineOffset(Purpose, listAC, spareList): #Sorting helps 
+def determineOffset(PurposeDictionary, listAC, spareList): #Sorting helps 
     #Always eng 1
     #remaining = [(msn, eng, d) for msn, eng, d in spareList if msn != list[1]]
     
@@ -123,11 +123,20 @@ def determineOffset(Purpose, listAC, spareList): #Sorting helps
     IndexMSN = first[0]
     IndexEngine = first[1]
 
-    listAC[IndexMSN][IndexEngine]["FirstRemove"] = listAC[IndexMSN][IndexEngine]["FirstVisit"] - timedelta(days=120)
+    #listAC[IndexMSN][IndexEngine]["FirstRemove"] = listAC[IndexMSN][IndexEngine]["FirstVisit"] - timedelta(days=120)
 
     #irst["FirstRemove"] = first["FirstVisit"] - timedelta(days=120)
 
     #adjustDateEng1 = [first, second, third, forth]
+    
+    #Adjustment added from removal. 
+
+    for n in range(4):
+        offsetDate = PurposeDictionary.get("Engine" + str(n))
+        #Create offset delay 
+        indexMSN = sorted_engines[n][0]
+        indexEngine = sorted_engines[n][1]
+        listAC[IndexMSN][IndexEngine]["FirstRemove"] = listAC[IndexMSN][IndexEngine]["FirstVisit"] - timedelta(days=offsetDate)
 
     return listAC[IndexMSN][IndexEngine]
 
