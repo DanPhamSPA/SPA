@@ -29,7 +29,8 @@ if uploaded: #Uploaded excel file update
         st.session_state.ListAirCraft = {int(k): v for k, v in raw.items()}
 
         #st.session_state.ListAirCraft = load_aircraft_dict()   # optional reset on new file
-
+    if "SpareEngineList" not in st.session_state:
+        st.session_state.SpareEngineList = []
     wb = load_workbook(BytesIO(st.session_state.excel_bytes),
                        keep_vba=uploaded.name.endswith(".xlsm"))
 
@@ -133,7 +134,7 @@ if uploaded: #Uploaded excel file update
 
 
     msn_list = list(st.session_state.ListAirCraft.keys())
-    SpareEngineList = st.session_state.SpareList = []
+    #SpareEngineList = st.session_state.SpareList = []
     
 
     SpareEngineUpdate = list(st.session_state.SpareEngineList)
