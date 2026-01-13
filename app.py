@@ -183,7 +183,7 @@ if uploaded: #Uploaded excel file update
             NewSpare = addSpare(msn1, msn2, spare_id)
 
             st.session_state.SpareEngineList.update(NewSpare) 
-
+            
             Spare1Short.append((msn1, "Eng1", rec1["Eng1"]))
             Spare1Short.append((msn1, "Eng2", rec1["Eng2"]))
             Spare1Short.append((msn2, "Eng1", rec2["Eng1"]))
