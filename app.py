@@ -358,7 +358,7 @@ if uploaded: #Uploaded excel file update
     
     with st1: 
         if st.button("Engine Stagging Forecast"):
-            st.write("DEBUG appended, now:", st.session_state.Spare1, "rows")
+            
             if OptionStagging == "Automatic":
                 PlanSchedule(selected_msn, ws, listShort, 300, eng) #Case nULL no vist
                 
