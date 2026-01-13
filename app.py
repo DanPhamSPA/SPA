@@ -137,7 +137,7 @@ if uploaded: #Uploaded excel file update
         if st.button("Clean aircraft list"):
             terminate_list()
             st.session_state.ListAirCraft = {} ##Key 
-            st.session_state.SpareEngineList = []   # reset list
+            st.session_state.SpareEngineDict = []   # reset list
             st.success("Spare list cleared")
             st.rerun()
             st.success("Successfully clean aircraft list")
