@@ -188,7 +188,9 @@ if uploaded: #Uploaded excel file update
             Spare1Short.append((msn1, "Eng2", rec1["Eng2"]))
             Spare1Short.append((msn2, "Eng1", rec2["Eng1"]))
             Spare1Short.append((msn2, "Eng2", rec2["Eng2"]))
+
             st.write("DEBUG appended, now:", len(st.session_state.Spare1), "rows")
+
 
         else:
             st.write("DEBUG skip append because spare_id exists:", spare_id)
@@ -196,14 +198,7 @@ if uploaded: #Uploaded excel file update
             
     Spare1 = []
 
-    for spare_id, (msn1, msn2) in st.session_state.SpareEngineList.items():
-        rec1 = listShort[msn1]
-        rec2 = listShort[msn2]
-
-        Spare1.append((msn1, "Eng1", rec1["Eng1"]))
-        Spare1.append((msn1, "Eng2", rec1["Eng2"]))
-        Spare1.append((msn2, "Eng1", rec2["Eng1"]))
-        Spare1.append((msn2, "Eng2", rec2["Eng2"]))
+    
   
     #Schuedule options
     col12, col22, = st.columns(2)
@@ -385,6 +380,7 @@ if uploaded: #Uploaded excel file update
     
     with st1: 
         if st.button("Engine Stagging Forecast"):
+            st.write("DEBUG appended, now:", st.session_state.Spare1, "rows")
             if OptionStagging == "Automatic":
                 PlanSchedule(selected_msn, ws, listShort, 300, eng) #Case nULL no vist
                 
