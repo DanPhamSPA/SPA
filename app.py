@@ -149,7 +149,7 @@ if uploaded: #Uploaded excel file update
 
 
 
-    SpareEngineUpdate = list(SpareShort)
+    #SpareEngineUpdate = list(SpareShort)
 
   
     col5, col6 = st.columns(2)
@@ -171,8 +171,8 @@ if uploaded: #Uploaded excel file update
         msn1, rec1 = First[-2]
         msn2, rec2 = First[-1]    
 
-        st.write("DEBUG rec1 type:", type(rec1))
-        st.write("DEBUG rec1 value:", rec1)
+        #st.write("DEBUG rec1 type:", type(rec1))
+        #st.write("DEBUG rec1 value:", rec1)
 
         spare_id = f"ID{len(listShort)//2}"
 
@@ -192,7 +192,7 @@ if uploaded: #Uploaded excel file update
   
     #Schuedule options
     col12, col22, = st.columns(2)
-    
+    st.write("DEBUG rec1 type:", type(st.session_state.SpareEngineList))
    
     SpareEngineUpdate = list(st.session_state.SpareEngineList.keys())
 
