@@ -197,19 +197,28 @@ if uploaded: #Uploaded excel file update
     
    
     SpareEngineUpdate = list(st.session_state.SpareEngineList.keys())
+
+    msn_options = msn_list or ["-- No MSN available --"]
     #st.write("DEBUG rec1 type:", type(SpareEngineUpdate))
     with col5:
         selected_msn = st.selectbox(
         "Select MSN",
-        options=msn_list,
-        index=0 if msn_list else None
+        options=msn_options,
+        index=0 if msn_options else None
         )
-
+        
         
         selected_spare = st.selectbox("Select Spare", 
         options=SpareEngineUpdate,
         index=0 if msn_list else None)
 
+
+        if selected_msn != "-- No MSN available --":
+            listShort[selected_msn]["StartOperation"] = selected_date
+            StartOp = listShort[selected_msn]["StartOperation"]
+        else:
+            st.warning("No MSN available. Please add/upload aircraft first.")
+            st.stop()
 
         #st.success("Plan applied (replace TODO with your function).")
     
