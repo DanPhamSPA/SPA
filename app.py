@@ -147,7 +147,7 @@ if uploaded: #Uploaded excel file update
 
 
 
-    #SpareEngineUpdate = list(SpareShort)
+    SpareEngineUpdate = list(SpareShort)
 
   
     col5, col6 = st.columns(2)
