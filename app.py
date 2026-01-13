@@ -410,7 +410,8 @@ if uploaded: #Uploaded excel file update
         #st.success("MSN " + str(msn) + " Successfully added")
         st.session_state.excel_bytes = out.getvalue()
 
-
+    st.write("DEBUG sample aircraft keys:", list(listShort.keys())[:10])
+    st.write("DEBUG selected_msn:", selected_msn, type(selected_msn))
     dictPurpose = {
         "Engine Performance Restoration 1": "FirstVisit", 
         "Engine Performance Restoration 2": "SecondVisit", 
