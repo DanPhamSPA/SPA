@@ -419,10 +419,10 @@ if uploaded: #Uploaded excel file update
         #Engine ???? Pair Eng 2: return the earliest (index of)
 
         if st.button("Finalise schedule"):
-            st.write("Spare1 preview:", Spare1Short)
+            st.write("Spare1 preview:", Spare1)
 
             #index = find_min_owner(Spare1, "FirstVisit")
-            remaining = determineOffset(dictPurpose.get(ShopVisitPurpose), listShort, Spare1Short)
+            remaining = determineOffset(dictPurpose.get(ShopVisitPurpose), listShort, Spare1)
 
             st.success(remaining)
             st.write("Spare1 preview:", listShort)
@@ -443,7 +443,7 @@ if uploaded: #Uploaded excel file update
 
 
 
-
+        
 
 
 
