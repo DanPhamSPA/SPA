@@ -170,7 +170,8 @@ if uploaded: #Uploaded excel file update
         msn1, rec1 = First[-2]
         msn2, rec2 = First[-1]    
 
-
+        st.write("DEBUG rec1 type:", type(rec1))
+        st.write("DEBUG rec1 value:", rec1)
         spare_id = f"ID{len(listShort)//2}"
 
         #MSN1.append(msn)  # ADDing the tail every 2 MSN added
