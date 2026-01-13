@@ -161,7 +161,7 @@ if uploaded: #Uploaded excel file update
 
 
 
-
+    SpareList = list(st.session_state.SpareEngineDict.keys())
 
     #Schuedule options
     col12, col22, = st.columns(2)
@@ -175,6 +175,11 @@ if uploaded: #Uploaded excel file update
         index=0 if msn_list else None
         )
 
+        selected_Spare= st.selectbox(
+        "Select Spare",
+         options=SpareList,
+        index=0 if SpareList else None
+        )
         #st.success("Plan applied (replace TODO with your function).")
     
     with col6:
