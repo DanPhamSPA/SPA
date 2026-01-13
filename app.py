@@ -41,6 +41,7 @@ if uploaded: #Uploaded excel file update
 
     if "ListAirCraft" not in st.session_state:
         st.session_state.ListAirCraft = {} 
+
     listShort = st.session_state.ListAirCraft
 
 
@@ -141,8 +142,8 @@ if uploaded: #Uploaded excel file update
     #SpareEngineList = st.session_state.SpareList = []
     
 
-    SpareEngineUpdate = list(st.session_state.SpareEngineList.keys())
-    spare_options = SpareEngineUpdate or ["-- No spares available --"]
+    #SpareEngineUpdate = list(st.session_state.SpareEngineList.keys())
+    #spare_options = SpareEngineUpdate or ["-- No spares available --"]
     col5, col6 = st.columns(2)
 
     First = list(listShort)
@@ -161,7 +162,7 @@ if uploaded: #Uploaded excel file update
 
         if len(MSN1) == 2:
             NewSpare = addSpare(MSN1[0], MSN1[1], "ID1")  # or increment ID
-            SpareEngineUpdate.append(NewSpare)
+            #SpareEngineUpdate.append(NewSpare)
             MSN1.clear()  
 
 
@@ -178,7 +179,7 @@ if uploaded: #Uploaded excel file update
         )
 
         
-        selected_spare = st.selectbox("Select Spare", options=spare_options)
+        #selected_spare = st.selectbox("Select Spare", options=spare_options)
         #st.success("Plan applied (replace TODO with your function).")
     
     with col6:
