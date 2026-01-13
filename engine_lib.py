@@ -107,16 +107,13 @@ def find_min_owner(labeled_engines, visit_key="FirstVisit"):
 
     return min(candidates) if candidates else None
 
-def resetForeCast(listAC, sorted_engines):
-
-    for n in range(4):
-        
-        #Create offset delay 
-        indexMSN = sorted_engines[n][0]
-        indexEngine = sorted_engines[n][1]
-        listAC[indexMSN][indexEngine]["FirstRemove"] = 0
-
-    return 
+def resetForeCast(listAC, engines):
+    # engines is your Spare1/spareList: [(msn, "Eng1"/"Eng2", engine_dict), ...]
+    for msn, eng, _ in engines:
+        listAC[msn][eng]["FirstRemove"] = 0
+        listAC[msn][eng]["SecondRemove"] = 0
+        listAC[msn][eng]["ThirdRemove"] = 0
+    return
 def resetSchedule(listAC, sorted_engines):
 
 
