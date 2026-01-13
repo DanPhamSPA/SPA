@@ -183,7 +183,7 @@ if uploaded: #Uploaded excel file update
             NewSpare = addSpare(msn1, msn2, spare_id)
 
             st.session_state.SpareEngineList.update(NewSpare) 
-            
+
             Spare1Short.append((msn1, "Eng1", rec1["Eng1"]))
             Spare1Short.append((msn1, "Eng2", rec1["Eng2"]))
             Spare1Short.append((msn2, "Eng1", rec2["Eng1"]))
@@ -406,8 +406,8 @@ if uploaded: #Uploaded excel file update
         #st.success("MSN " + str(msn) + " Successfully added")
         st.session_state.excel_bytes = out.getvalue()
 
-    st.write("DEBUG sample aircraft keys:", list(listShort.keys())[:10])
-    st.write("DEBUG selected_msn:", selected_msn, type(selected_msn))
+    #st.write("DEBUG sample aircraft keys:", list(listShort.keys())[:10])
+    #st.write("DEBUG selected_msn:", selected_msn, type(selected_msn))
     dictPurpose = {
         "Engine Performance Restoration 1": "FirstVisit", 
         "Engine Performance Restoration 2": "SecondVisit", 
