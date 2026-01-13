@@ -158,7 +158,7 @@ if uploaded: #Uploaded excel file update
 
     if "Spare1" not in st.session_state:
         st.session_state.Spare1 = []
-
+    Spare1Short = st.session_state.Spare1
     #for msn, rec in First[:2]:       # first 2 aircraft (adjust if needed)
     #    Spare1.append((msn, "Eng1", rec["Eng1"]))
     #    Spare1.append((msn, "Eng2", rec["Eng2"]))
@@ -184,10 +184,10 @@ if uploaded: #Uploaded excel file update
 
             st.session_state.SpareEngineList.update(NewSpare) 
 
-            Spare1.append((msn1, "Eng1", rec1["Eng1"]))
-            Spare1.append((msn1, "Eng2", rec1["Eng2"]))
-            Spare1.append((msn2, "Eng1", rec2["Eng1"]))
-            Spare1.append((msn2, "Eng2", rec2["Eng2"]))
+            Spare1Short.append((msn1, "Eng1", rec1["Eng1"]))
+            Spare1Short.append((msn1, "Eng2", rec1["Eng2"]))
+            Spare1Short.append((msn2, "Eng1", rec2["Eng1"]))
+            Spare1Short.append((msn2, "Eng2", rec2["Eng2"]))
        
 
         
@@ -411,10 +411,10 @@ if uploaded: #Uploaded excel file update
         #Engine ???? Pair Eng 2: return the earliest (index of)
 
         if st.button("Finalise schedule"):
-            st.write("Spare1 preview:", Spare1)
+            st.write("Spare1 preview:", Spare1Short)
 
             #index = find_min_owner(Spare1, "FirstVisit")
-            remaining = determineOffset(dictPurpose.get(ShopVisitPurpose), listShort, Spare1)
+            remaining = determineOffset(dictPurpose.get(ShopVisitPurpose), listShort, Spare1Short)
 
             st.success(remaining)
             st.write("Spare1 preview:", listShort)
