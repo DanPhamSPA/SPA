@@ -189,7 +189,7 @@ if uploaded: #Uploaded excel file update
             Spare1Short.append((msn2, "Eng1", rec2["Eng1"]))
             Spare1Short.append((msn2, "Eng2", rec2["Eng2"]))
 
-            st.write("DEBUG appended, now:", len(st.session_state.Spare1), "rows")
+            #st.write("DEBUG appended, now:", len(st.session_state.Spare1), "rows")
 
 
         else:
@@ -198,7 +198,18 @@ if uploaded: #Uploaded excel file update
             
     Spare1 = []
 
-    
+        
+    for msn1, msn2 in st.session_state.SparePairs:
+        if msn1 not in listShort or msn2 not in listShort:
+            continue  # prevent KeyError
+
+        rec1 = listShort[msn1]
+        rec2 = listShort[msn2]
+
+        Spare1.append((msn1, "Eng1", rec1["Eng1"]))
+        Spare1.append((msn1, "Eng2", rec1["Eng2"]))
+        Spare1.append((msn2, "Eng1", rec2["Eng1"]))
+        Spare1.append((msn2, "Eng2", rec2["Eng2"]))
   
     #Schuedule options
     col12, col22, = st.columns(2)
@@ -426,7 +437,7 @@ if uploaded: #Uploaded excel file update
             remaining = determineOffset(dictPurpose.get(ShopVisitPurpose), listShort, Spare1)
             st.write("Spare1 preview:",  listShort)
 
-            st.success(remaining)
+            #st.success(remaining)
             #st.write("Spare1 preview:", listShort)
             #st.success(index)
 
