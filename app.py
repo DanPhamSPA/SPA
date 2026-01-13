@@ -142,8 +142,8 @@ if uploaded: #Uploaded excel file update
     #SpareEngineList = st.session_state.SpareList = []
     
 
-    #SpareEngineUpdate = list(st.session_state.SpareEngineList.keys())
-    #spare_options = SpareEngineUpdate or ["-- No spares available --"]
+    SpareEngineUpdate = list(st.session_state.SpareEngineList.keys())
+    spare_options = SpareEngineUpdate or ["-- No spares available --"]
     col5, col6 = st.columns(2)
 
     First = list(listShort.items())
@@ -179,7 +179,7 @@ if uploaded: #Uploaded excel file update
         )
 
         
-        #selected_spare = st.selectbox("Select Spare", options=spare_options)
+        selected_spare = st.selectbox("Select Spare", options=spare_options)
         #st.success("Plan applied (replace TODO with your function).")
     
     with col6:
