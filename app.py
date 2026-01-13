@@ -177,13 +177,13 @@ if uploaded: #Uploaded excel file update
         spare_id = f"ID{len(listShort)//2}"
 
         #MSN1.append(msn)  # ADDing the tail every 2 MSN added
-        #if spare_id not in st.session_state.SpareEngineList:
-        #    st.session_state.SpareEngineList[spare_id] = (msn1, msn2)
+        if spare_id not in st.session_state.SpareEngineList:
+            st.session_state.SpareEngineList[spare_id] = (msn1, msn2)
 
-        #    Spare1.append((msn1, "Eng1", rec1[0]["Eng1"]))
-        #    Spare1.append((msn1, "Eng2", rec1[1]["Eng2"]))
-        #    Spare1.append((msn2, "Eng1", rec2[0]["Eng1"]))
-        #    Spare1.append((msn2, "Eng2", rec2[1]["Eng2"]))
+            Spare1.append((msn1, "Eng1", rec1["Eng1"]))
+            Spare1.append((msn1, "Eng2", rec1["Eng2"]))
+            Spare1.append((msn2, "Eng1", rec2["Eng1"]))
+            Spare1.append((msn2, "Eng2", rec2["Eng2"]))
        
 
         
@@ -195,7 +195,7 @@ if uploaded: #Uploaded excel file update
     
    
     SpareEngineUpdate = list(SpareShort.keys())
-    st.write("DEBUG rec1 type:", type(SpareEngineUpdate))
+    #st.write("DEBUG rec1 type:", type(SpareEngineUpdate))
     with col5:
         selected_msn = st.selectbox(
         "Select MSN",
