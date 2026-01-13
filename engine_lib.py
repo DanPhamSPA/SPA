@@ -123,7 +123,7 @@ def determineOffset(PurposeDictionary, listAC, spareList): #Sorting helps
     #remaining = [(msn, eng, d) for msn, eng, d in spareList if msn != list[1]]
     #offsetDate = ShopVisit1.get("Engine" + str(1))
     
-    resetForeCast(listAC, spareList)
+    #resetForeCast(listAC, spareList)
     
     sorted_engines = sorted(spareList,
     key=lambda x: to_date(x[2].get("FirstVisit"))
