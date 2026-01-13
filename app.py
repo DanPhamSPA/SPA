@@ -165,53 +165,19 @@ if uploaded: #Uploaded excel file update
     #    Spare1.append((msn, "Eng2", rec["Eng2"]))
 
    
-    
+    Spare1 = []
+    for msn, rec in First[-2:]:
+        Spare1.append((msn, "Eng1", rec["Eng1"]))
+        Spare1.append((msn, "Eng2", rec["Eng2"]))
+
 
     MSN1 = []
 
-    if (len(listShort) % 2 == 0) and len(First) >= 2:
-    
-        msn1, rec1 = First[-2]
-        msn2, rec2 = First[-1]    
-
-        #st.write("DEBUG rec1 type:", type(rec1))
-        #st.write("DEBUG rec1 value:", rec1)
-
-        spare_id = f"ID{len(listShort)//2}"
-
-        #MSN1.append(msn)  # ADDing the tail every 2 MSN added
-        if spare_id not in st.session_state.SpareEngineList:
-            NewSpare = addSpare(msn1, msn2, spare_id)
-
-            st.session_state.SpareEngineList.update(NewSpare) 
-
-            Spare1Short.append((msn1, "Eng1", rec1["Eng1"]))
-            Spare1Short.append((msn1, "Eng2", rec1["Eng2"]))
-            Spare1Short.append((msn2, "Eng1", rec2["Eng1"]))
-            Spare1Short.append((msn2, "Eng2", rec2["Eng2"]))
-
-            #st.write("DEBUG appended, now:", len(st.session_state.Spare1), "rows")
-
-
-        else:
-            st.write("DEBUG skip append because spare_id exists:", spare_id)
     
             
     Spare1 = []
 
-        
-    for msn1, msn2 in st.session_state.SparePairs:
-        if msn1 not in listShort or msn2 not in listShort:
-            continue  # prevent KeyError
-
-        rec1 = listShort[msn1]
-        rec2 = listShort[msn2]
-
-        Spare1.append((msn1, "Eng1", rec1["Eng1"]))
-        Spare1.append((msn1, "Eng2", rec1["Eng2"]))
-        Spare1.append((msn2, "Eng1", rec2["Eng1"]))
-        Spare1.append((msn2, "Eng2", rec2["Eng2"]))
-  
+   
     #Schuedule options
     col12, col22, = st.columns(2)
     
