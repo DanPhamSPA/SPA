@@ -184,7 +184,7 @@ if uploaded: #Uploaded excel file update
         
             
 
-    spare_options = SpareEngineUpdate or ["-- No spares available --"]
+  
     #Schuedule options
     col12, col22, = st.columns(2)
     
