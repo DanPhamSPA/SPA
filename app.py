@@ -156,7 +156,9 @@ if uploaded: #Uploaded excel file update
 
     First = list(listShort.items())
 
-    Spare1 = []
+    if "Spare1" not in st.session_state:
+        st.session_state.Spare1 = []
+
     #for msn, rec in First[:2]:       # first 2 aircraft (adjust if needed)
     #    Spare1.append((msn, "Eng1", rec["Eng1"]))
     #    Spare1.append((msn, "Eng2", rec["Eng2"]))
