@@ -159,23 +159,23 @@ if uploaded: #Uploaded excel file update
 
    
     MSN1 = []
-    
-    for msn, rec in First[-2:]:     
-        MSN1.append(msn)  # ADDing the tail every 2 MSN added
+    if (len(listShort)%2 == 0):
+        for msn, rec in First[-2:]:     
+            MSN1.append(msn)  # ADDing the tail every 2 MSN added
 
-        Spare1.append((msn, "Eng1", rec["Eng1"]))
-        Spare1.append((msn, "Eng2", rec["Eng2"]))
+            Spare1.append((msn, "Eng1", rec["Eng1"]))
+            Spare1.append((msn, "Eng2", rec["Eng2"]))
 
-        ID = "ID"
+            ID = "ID"
 
-    if len(MSN1) == 2:
+        if len(MSN1) == 2:
+                
+            NewSpare = addSpare(MSN1[0], MSN1[1], ID + str(len(listShort)/2))  # or increment ID
+            SpareEngineUpdate.append(NewSpare)
             
-        NewSpare = addSpare(MSN1[0], MSN1[1], ID + str(len(listShort)/2))  # or increment ID
-        SpareEngineUpdate.append(NewSpare)
-        
-        MSN1.clear()  
+            MSN1.clear()  
 
-    
+            
 
     spare_options = SpareEngineUpdate or ["-- No spares available --"]
     #Schuedule options
@@ -186,13 +186,16 @@ if uploaded: #Uploaded excel file update
     with col5:
         selected_msn = st.selectbox(
         "Select MSN",
-         options=msn_list,
+        options=msn_list,
         index=0 if msn_list else None
         )
 
         
-        selected_spare = st.selectbox("Select Spare", options=SpareEngineUpdate,
+        selected_spare = st.selectbox("Select Spare", 
+        options=SpareEngineUpdate,
         index=0 if msn_list else None)
+
+
         #st.success("Plan applied (replace TODO with your function).")
     
     with col6:
