@@ -15,6 +15,23 @@ from datetime import date
 SPARE_FACTOR = 2
 CYCLE_PER_DAY = 8
 
+
+def add_msn_and_generate_spare(msn: int):
+    buffer = st.session_state.MSN_buffer
+    spares = st.session_state.SpareEngineDict
+
+    buffer.append(msn)
+
+    # Only create spare when we have 2 MSNs
+    if len(buffer) == 2:
+        spare_index = len(spares) + 1
+        spare_id = f"ID{spare_index}"
+
+        spares[spare_id] = (buffer[0], buffer[1])
+
+        buffer.clear()   # reset for next pair
+
+
 st.set_page_config(page_title="Engine Fleet Staggering", layout="wide")
 st.title("Engine Fleet Staggering – Scheduler UI")
 
@@ -42,6 +59,14 @@ if uploaded: #Uploaded excel file update
 
     
     st.session_state.ListSpare = {}
+
+
+    if "SpareEngineDict" not in st.session_state:
+        st.session_state.SpareEngineDict = {}
+
+    if "MSN_buffer" not in st.session_state:
+        st.session_state.MSN_buffer = []
+
 
     st.subheader("Current Status")
     
@@ -89,7 +114,7 @@ if uploaded: #Uploaded excel file update
 
             #print(ListAirCraft)
             print(str(address) + "Added New")
-
+            add_msn_and_generate_spare(msn)
             editExcel(address, newEntry, TailAdd, ws, st.session_state.ListAirCraft, EngineSerial)
             #st.write("Updated aircraft dict:", st.session_state.ListAirCraft)
 
@@ -336,7 +361,7 @@ if uploaded: #Uploaded excel file update
         #Engine ???? Pair Eng 2: return the earliest (index of)
 
         if st.button("Finalise schedule"):
-            st.write("Spare1 preview:", Spare1)
+            #st.write("Spare1 preview:", Spare1)
 
             #index = find_min_owner(Spare1, "FirstVisit")
             remaining = determineOffset(dictPurpose.get(ShopVisitPurpose), listShort, Spare1)
