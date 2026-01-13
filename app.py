@@ -30,7 +30,7 @@ if uploaded: #Uploaded excel file update
 
         #st.session_state.ListAirCraft = load_aircraft_dict()   # optional reset on new file
     if "SpareEngineList" not in st.session_state:
-        st.session_state.SpareEngineList = []
+        st.session_state.SpareEngineList = {}
 
 
     wb = load_workbook(BytesIO(st.session_state.excel_bytes),
