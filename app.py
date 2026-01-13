@@ -158,7 +158,11 @@ if uploaded: #Uploaded excel file update
     #    Spare1.append((msn, "Eng2", rec["Eng2"]))
 
    
-    MSN1 = []
+    if "MSN1" not in st.session_state:
+        st.session_state.MSN1 = []
+
+    MSN1 = st.session_state.MSN1
+
     if (len(listShort)%2 == 0):
         for msn, rec in First[-2:]:     
             MSN1.append(msn)  # ADDing the tail every 2 MSN added
@@ -173,7 +177,7 @@ if uploaded: #Uploaded excel file update
             NewSpare = addSpare(MSN1[0], MSN1[1], ID + str(len(listShort)/2))  # or increment ID
             SpareEngineUpdate.append(NewSpare)
             
-            MSN1.clear()  
+            MSN1 = []  
 
             
 
