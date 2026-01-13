@@ -196,7 +196,7 @@ if uploaded: #Uploaded excel file update
     col12, col22, = st.columns(2)
     
    
-    SpareEngineUpdate = list(SpareShort.keys())
+    SpareEngineUpdate = list(st.session_state.SpareEngineList.keys())
     #st.write("DEBUG rec1 type:", type(SpareEngineUpdate))
     with col5:
         selected_msn = st.selectbox(
