@@ -192,10 +192,10 @@ if uploaded: #Uploaded excel file update
   
     #Schuedule options
     col12, col22, = st.columns(2)
-    st.write("DEBUG rec1 type:", type(st.session_state.SpareEngineList))
+    
    
-    SpareEngineUpdate = list(st.session_state.SpareEngineList.keys())
-
+    SpareEngineUpdate = list(SpareShort.keys())
+    st.write("DEBUG rec1 type:", type(SpareEngineUpdate))
     with col5:
         selected_msn = st.selectbox(
         "Select MSN",
