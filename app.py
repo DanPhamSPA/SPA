@@ -166,6 +166,8 @@ if uploaded: #Uploaded excel file update
     #Schuedule options
     col12, col22, = st.columns(2)
     
+    spare_ids = [sid for sid, _, _ in SpareList]
+    
    
 
     with col5:
@@ -175,11 +177,16 @@ if uploaded: #Uploaded excel file update
         index=0 if msn_list else None
         )
 
-        selected_Spare= st.selectbox(
-        "Select Spare",
-         options=SpareList,
-        index=0 if SpareList else  ["-- No MSN available --"]
-        )
+        selected_id = st.selectbox(
+            "Select Spare",
+            options=spare_ids if spare_ids else ["-- No spares available --"],
+            format_func=lambda x: (
+                f"{x}: {next((m1 for sid, m1, m2 in SpareList if sid == x), '')} & "
+                f"{next((m2 for sid, m1, m2 in SpareList if sid == x), '')}"
+                if x != "-- No spares available --" else x
+            )
+         )   
+
         #st.success("Plan applied (replace TODO with your function).")
     
     with col6:
