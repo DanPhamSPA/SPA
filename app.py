@@ -178,7 +178,9 @@ if uploaded: #Uploaded excel file update
 
         #MSN1.append(msn)  # ADDing the tail every 2 MSN added
         if spare_id not in st.session_state.SpareEngineList:
-            st.session_state.SpareEngineList[spare_id] = (msn1, msn2)
+            NewSpare = addSpare(msn1, msn2, spare_id)
+
+            st.session_state.SpareEngineList.update(NewSpare) 
 
             Spare1.append((msn1, "Eng1", rec1["Eng1"]))
             Spare1.append((msn1, "Eng2", rec1["Eng2"]))
