@@ -145,7 +145,7 @@ if uploaded: #Uploaded excel file update
     spare_options = SpareEngineUpdate or ["-- No spares available --"]
     col5, col6 = st.columns(2)
 
-    First = list(listShort.items())
+    First = list(listShort)
     Spare1 = []
     #for msn, rec in First[:2]:       # first 2 aircraft (adjust if needed)
     #    Spare1.append((msn, "Eng1", rec["Eng1"]))
