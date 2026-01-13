@@ -32,8 +32,7 @@ if uploaded: #Uploaded excel file update
     
     
     
-    if "SpareEngineList" not in st.session_state:
-        st.session_state.SpareEngineList = {}
+    
 
 
     wb = load_workbook(BytesIO(st.session_state.excel_bytes),
@@ -44,9 +43,10 @@ if uploaded: #Uploaded excel file update
 
     if "ListAirCraft" not in st.session_state:
         st.session_state.ListAirCraft = {} 
-
+    if "SpareEngineDict" not in st.session_state:
+        st.session_state.SpareEngineDict = {}
     listShort = st.session_state.ListAirCraft
-
+    SpareShort = st.session_state.SpareEngineDict
 
 
     
@@ -144,8 +144,11 @@ if uploaded: #Uploaded excel file update
     #SpareEngineList = st.session_state.SpareList = []
     
 
-    SpareEngineUpdate = list(st.session_state.SpareEngineList.keys())
-    spare_options = SpareEngineUpdate or ["-- No spares available --"]
+
+
+    SpareEngineUpdate = list(SpareShort)
+
+  
     col5, col6 = st.columns(2)
 
     First = list(listShort.items())
@@ -167,7 +170,9 @@ if uploaded: #Uploaded excel file update
             SpareEngineUpdate.append(NewSpare)
             MSN1.clear()  
 
+    
 
+    spare_options = SpareEngineUpdate or ["-- No spares available --"]
     #Schuedule options
     col12, col22, = st.columns(2)
     
