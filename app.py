@@ -40,7 +40,8 @@ if uploaded: #Uploaded excel file update
 
     sheet = st.selectbox("Select sheet", wb.sheetnames)
     ws = wb[sheet]
-
+    if "SparePairs" not in st.session_state:
+        st.session_state.SparePairs = []
     if "ListAirCraft" not in st.session_state:
         st.session_state.ListAirCraft = {} 
     if "SpareEngineDict" not in st.session_state:
