@@ -49,7 +49,9 @@ if uploaded: #Uploaded excel file update
 
     SpareShort = st.session_state.SpareEngineDict
 
-
+    
+    if "Spare1" not in st.session_state:
+        st.session_state.Spare1 = []
     
 
     st.subheader("Current Status")
@@ -156,8 +158,6 @@ if uploaded: #Uploaded excel file update
 
     First = list(listShort.items())
 
-    if "Spare1" not in st.session_state:
-        st.session_state.Spare1 = []
     Spare1Short = st.session_state.Spare1
     #for msn, rec in First[:2]:       # first 2 aircraft (adjust if needed)
     #    Spare1.append((msn, "Eng1", rec["Eng1"]))
@@ -188,9 +188,11 @@ if uploaded: #Uploaded excel file update
             Spare1Short.append((msn1, "Eng2", rec1["Eng2"]))
             Spare1Short.append((msn2, "Eng1", rec2["Eng1"]))
             Spare1Short.append((msn2, "Eng2", rec2["Eng2"]))
-       
+            st.write("DEBUG appended, now:", len(st.session_state.Spare1), "rows")
 
-        
+        else:
+            st.write("DEBUG skip append because spare_id exists:", spare_id)
+    
             
 
   
