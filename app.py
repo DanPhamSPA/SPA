@@ -155,6 +155,7 @@ if uploaded: #Uploaded excel file update
     col5, col6 = st.columns(2)
 
     First = list(listShort.items())
+
     Spare1 = []
     #for msn, rec in First[:2]:       # first 2 aircraft (adjust if needed)
     #    Spare1.append((msn, "Eng1", rec["Eng1"]))
@@ -172,16 +173,17 @@ if uploaded: #Uploaded excel file update
 
         st.write("DEBUG rec1 type:", type(rec1))
         st.write("DEBUG rec1 value:", rec1)
+
         spare_id = f"ID{len(listShort)//2}"
 
         #MSN1.append(msn)  # ADDing the tail every 2 MSN added
-        if spare_id not in st.session_state.SpareEngineList:
-            st.session_state.SpareEngineList[spare_id] = (msn1, msn2)
+        #if spare_id not in st.session_state.SpareEngineList:
+        #    st.session_state.SpareEngineList[spare_id] = (msn1, msn2)
 
-            Spare1.append((msn1, "Eng1", rec1[0]["Eng1"]))
-            Spare1.append((msn1, "Eng2", rec1[1]["Eng2"]))
-            Spare1.append((msn2, "Eng1", rec2[0]["Eng1"]))
-            Spare1.append((msn2, "Eng2", rec2[1]["Eng2"]))
+        #    Spare1.append((msn1, "Eng1", rec1[0]["Eng1"]))
+        #    Spare1.append((msn1, "Eng2", rec1[1]["Eng2"]))
+        #    Spare1.append((msn2, "Eng1", rec2[0]["Eng1"]))
+        #    Spare1.append((msn2, "Eng2", rec2[1]["Eng2"]))
        
 
         
