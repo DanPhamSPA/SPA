@@ -194,7 +194,16 @@ if uploaded: #Uploaded excel file update
             st.write("DEBUG skip append because spare_id exists:", spare_id)
     
             
+    Spare1 = []
 
+    for spare_id, (msn1, msn2) in st.session_state.SpareEngineList.items():
+        rec1 = listShort[msn1]
+        rec2 = listShort[msn2]
+
+        Spare1.append((msn1, "Eng1", rec1["Eng1"]))
+        Spare1.append((msn1, "Eng2", rec1["Eng2"]))
+        Spare1.append((msn2, "Eng1", rec2["Eng1"]))
+        Spare1.append((msn2, "Eng2", rec2["Eng2"]))
   
     #Schuedule options
     col12, col22, = st.columns(2)
@@ -416,7 +425,7 @@ if uploaded: #Uploaded excel file update
             st.write("Spare1 preview:", Spare1Short)
 
             #index = find_min_owner(Spare1, "FirstVisit")
-            remaining = determineOffset(dictPurpose.get(ShopVisitPurpose), listShort, Spare1Short)
+            remaining = determineOffset(dictPurpose.get(ShopVisitPurpose), listShort, Spare1)
 
             st.success(remaining)
             st.write("Spare1 preview:", listShort)
