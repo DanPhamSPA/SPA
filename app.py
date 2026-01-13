@@ -164,9 +164,10 @@ if uploaded: #Uploaded excel file update
         MSN1.append(msn)  # ADDing the tail every 2 MSN added
         Spare1.append((msn, "Eng1", rec["Eng1"]))
         Spare1.append((msn, "Eng2", rec["Eng2"]))
-
+        ID = "ID"
         if len(MSN1) == 2:
-            NewSpare = addSpare(MSN1[0], MSN1[1], "ID1")  # or increment ID
+            
+            NewSpare = addSpare(MSN1[0], MSN1[1], ID + str(len(listShort)/2))  # or increment ID
             SpareEngineUpdate.append(NewSpare)
             MSN1.clear()  
 
