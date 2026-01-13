@@ -92,11 +92,7 @@ def to_date(x):
         return None
 
     return None
-def addSpare(MSN1, MSN2, SpareID):
 
-    newSpare = {SpareID:{MSN1, MSN2}}
-
-    return newSpare
 
 def find_min_owner(labeled_engines, visit_key="FirstVisit"):
     candidates = []
@@ -107,13 +103,16 @@ def find_min_owner(labeled_engines, visit_key="FirstVisit"):
 
     return min(candidates) if candidates else None
 
-def resetForeCast(listAC, engines):
-    # engines is your Spare1/spareList: [(msn, "Eng1"/"Eng2", engine_dict), ...]
-    for msn, eng, _ in engines:
-        listAC[msn][eng]["FirstRemove"] = 0
-        listAC[msn][eng]["SecondRemove"] = 0
-        listAC[msn][eng]["ThirdRemove"] = 0
-    return
+def resetForeCast(listAC, sorted_engines):
+
+    for n in range(4):
+        offsetDate = ShopVisit1.get("Engine" + str(n+1))
+        #Create offset delay 
+        indexMSN = sorted_engines[n][0]
+        indexEngine = sorted_engines[n][1]
+        listAC[indexMSN][indexEngine]["FirstRemove"] = 0
+
+    return 
 def resetSchedule(listAC, sorted_engines):
 
 
@@ -122,39 +121,30 @@ def determineOffset(PurposeDictionary, listAC, spareList): #Sorting helps
     #Always eng 1
     #remaining = [(msn, eng, d) for msn, eng, d in spareList if msn != list[1]]
     #offsetDate = ShopVisit1.get("Engine" + str(1))
+    resetForeCast(listAC, sorted_engines)
     
-    #resetForeCast(listAC, spareList)
     
     sorted_engines = sorted(spareList,
     key=lambda x: to_date(x[2].get("FirstVisit"))
     )
     #Removing adjustment 
-   
+    
     
 
     #listAC[IndexMSN][IndexEngine]["FirstRemove"] = listAC[IndexMSN][IndexEngine]["FirstVisit"] - timedelta(days=120)
 
  
-    limit = min(4, len(sorted_engines))
-
+    
     #Adjustment added from removal. 
 
-    for n in range(limit):
-        offsetDate = ShopVisit1.get("Engine" + str(n + 1), 0)  # default 0
+    for n in range(4):
 
+        offsetDate = ShopVisit1.get("Engine" + str(n+1))
+        #Create offset delay 
         indexMSN = sorted_engines[n][0]
         indexEngine = sorted_engines[n][1]
 
-        #  parse/normalize FirstVisit into a datetime.date
-        first_visit = to_date(listAC[indexMSN][indexEngine].get("FirstVisit"))
-
-        # if FirstVisit is missing/invalid, skip
-        if not first_visit:
-            continue
-
-        #  set FirstRemove as a real date
-        listAC[indexMSN][indexEngine]["FirstRemove"] = first_visit + timedelta(days=int(offsetDate))
-
+        listAC[indexMSN][indexEngine]["FirstRemove"] = listAC[indexMSN][indexEngine]["FirstVisit"] +  timedelta(days=offsetDate)
 
     
 
@@ -177,7 +167,7 @@ def updateVisit(MSN,listAC, listVisit, SetFactor, selectedDate, eng):
     Forecast_Delta3 = min(listVisit[2][0], listVisit[2][1], listVisit[2][2])/SetFactor
 
 
-    listAC[MSN][eng]["FirstVisit"] = listAC[MSN]["StartOperation"] + timedelta(days=Forecast_Delta1)
+    listAC[MSN][eng]["FirstVisit"] = listAC[MSN][eng]["StartOperation"] + timedelta(days=Forecast_Delta1)
     listAC[MSN][eng]["SecondVisit"] =  listAC[MSN][eng]["FirstVisit"] + timedelta(days=Forecast_Delta2)
     listAC[MSN][eng]["ThirdVisit"] = listAC[MSN][eng]["SecondVisit"] + timedelta(days=Forecast_Delta3)
     

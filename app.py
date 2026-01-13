@@ -4,7 +4,7 @@ from io import BytesIO
 from engine_lib import load_aircraft_dict, save_aircraft_dict, terminate_list
 
 from openpyxl import load_workbook
-from engine_lib import addNewEngine, getEngine, getAircraft, editExcel, getCell, addSchedule, getTail, rangeSchedule, addSpare
+from engine_lib import addNewEngine, getEngine, getAircraft, editExcel, getCell, addSchedule, getTail, rangeSchedule
 from engine_lib import PlanShopDate, PlanSchedule, row_for, cleanSchedule, getVisit, updateVisit, find_min_owner, determineOffset
 
 from ExcelRule import RedFillCell, configureFormat
@@ -29,31 +29,19 @@ if uploaded: #Uploaded excel file update
         st.session_state.ListAirCraft = {int(k): v for k, v in raw.items()}
 
         #st.session_state.ListAirCraft = load_aircraft_dict()   # optional reset on new file
-    
-    
-    
-    
-
 
     wb = load_workbook(BytesIO(st.session_state.excel_bytes),
                        keep_vba=uploaded.name.endswith(".xlsm"))
 
     sheet = st.selectbox("Select sheet", wb.sheetnames)
     ws = wb[sheet]
-    if "SparePairs" not in st.session_state:
-        st.session_state.SparePairs = []
-    if "ListAirCraft" not in st.session_state:
-        st.session_state.ListAirCraft = {} 
-    if "SpareEngineDict" not in st.session_state:
-        st.session_state.SpareEngineDict = {}
+
+    #if "ListAirCraft" not in st.session_state:
+        #st.session_state.ListAirCraft = {} 
     listShort = st.session_state.ListAirCraft
 
-    SpareShort = st.session_state.SpareEngineDict
-
     
-    if "Spare1" not in st.session_state:
-        st.session_state.Spare1 = []
-    
+    st.session_state.ListSpare = {}
 
     st.subheader("Current Status")
     
@@ -142,69 +130,25 @@ if uploaded: #Uploaded excel file update
     #MSN control
 
     st.subheader("Aircraft Information")
-
-
     msn_list = list(st.session_state.ListAirCraft.keys())
-    if "SpareEngineList" not in st.session_state or not isinstance(st.session_state.SpareEngineList, dict):
-        st.session_state.SpareEngineList = {}
     
-    
-
-
-
-    #SpareEngineUpdate = list(SpareShort)
-
-  
     col5, col6 = st.columns(2)
 
-    First = list(listShort.items())
-
-    Spare1Short = st.session_state.Spare1
-    #for msn, rec in First[:2]:       # first 2 aircraft (adjust if needed)
-    #    Spare1.append((msn, "Eng1", rec["Eng1"]))
-    #    Spare1.append((msn, "Eng2", rec["Eng2"]))
-
-   
-    Spare1 = []
-    for msn, rec in First[-2:]:
-        Spare1.append((msn, "Eng1", rec["Eng1"]))
-        Spare1.append((msn, "Eng2", rec["Eng2"]))
 
 
-    MSN1 = []
 
-    
-            
-    Spare1 = []
 
-   
     #Schuedule options
     col12, col22, = st.columns(2)
     
    
-    SpareEngineUpdate = list(st.session_state.SpareEngineList.keys())
 
-    msn_options = msn_list or ["-- No MSN available --"]
-    #st.write("DEBUG rec1 type:", type(SpareEngineUpdate))
     with col5:
         selected_msn = st.selectbox(
         "Select MSN",
-        options=msn_options,
-        index=0 if msn_options else None
+         options=msn_list,
+        index=0 if msn_list else None
         )
-        
-        
-        selected_spare = st.selectbox("Select Spare", 
-        options=SpareEngineUpdate,
-        index=0 if msn_list else None)
-
-
-        if selected_msn != "-- No MSN available --":
-            listShort[selected_msn]["StartOperation"] = selected_date
-            StartOp = listShort[selected_msn]["StartOperation"]
-        else:
-            st.warning("No MSN available. Please add/upload aircraft first.")
-            st.stop()
 
         #st.success("Plan applied (replace TODO with your function).")
     
@@ -253,7 +197,7 @@ if uploaded: #Uploaded excel file update
                
                 rangeSchedule(selected_msn, monthS, yearS, monthE, yearE, listShort, ws, cycle_plan, eng) 
 
-                st.success("Automatic Mode updated" + str(SpareEngineUpdate))
+                st.success("Automatic Mode updated")
 
 
 
@@ -347,18 +291,14 @@ if uploaded: #Uploaded excel file update
     #Selected date started 
 
     #getIndex = getVisit(ShopVisitPurpose) 
-    
-    
-    #for msn, rec in First[:2]:       # first 2 aircraft (adjust if needed)
-    #    Spare1.append((msn, "Eng1", rec["Eng1"]))
-    #    Spare1.append((msn, "Eng2", rec["Eng2"]))
+    First = list(listShort.items())
+    Spare1 = []
+    for msn, rec in First[:2]:       # first 2 aircraft (adjust if needed)
+        Spare1.append((msn, "Eng1", rec["Eng1"]))
+        Spare1.append((msn, "Eng2", rec["Eng2"]))
 
-   
-    
-    
     with st1: 
         if st.button("Engine Stagging Forecast"):
-            
             if OptionStagging == "Automatic":
                 PlanSchedule(selected_msn, ws, listShort, 300, eng) #Case nULL no vist
                 
@@ -367,7 +307,7 @@ if uploaded: #Uploaded excel file update
                 updateVisit(selected_msn, listShort, ListInputForecast, SetFactor, selected_date, eng)
 
                 
-                st.write("MSN " + str(listShort.get(selected_msn)) + " forecast date Successfully added "  )
+                st.success("MSN " + str(listShort.get(selected_msn)) + " forecast date Successfully added "  )
                 st.success(str(StartOp))
                 #st.success("Automatic Stagging mode updated " + str(listShort.get(selected_msn)))
                 #st.success(str(Spare1))
@@ -384,8 +324,7 @@ if uploaded: #Uploaded excel file update
         #st.success("MSN " + str(msn) + " Successfully added")
         st.session_state.excel_bytes = out.getvalue()
 
-    #st.write("DEBUG sample aircraft keys:", list(listShort.keys())[:10])
-    #st.write("DEBUG selected_msn:", selected_msn, type(selected_msn))
+
     dictPurpose = {
         "Engine Performance Restoration 1": "FirstVisit", 
         "Engine Performance Restoration 2": "SecondVisit", 
@@ -400,15 +339,13 @@ if uploaded: #Uploaded excel file update
             st.write("Spare1 preview:", Spare1)
 
             #index = find_min_owner(Spare1, "FirstVisit")
-
             remaining = determineOffset(dictPurpose.get(ShopVisitPurpose), listShort, Spare1)
-            st.write("Spare1 preview:",  listShort)
 
-            #st.success(remaining)
-            #st.write("Spare1 preview:", listShort)
+            st.success(remaining)
+            st.write("Spare1 preview:", listShort)
             #st.success(index)
 
-
+        
 
 
 
