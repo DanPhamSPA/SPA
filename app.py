@@ -46,6 +46,7 @@ if uploaded: #Uploaded excel file update
     if "SpareEngineDict" not in st.session_state:
         st.session_state.SpareEngineDict = {}
     listShort = st.session_state.ListAirCraft
+
     SpareShort = st.session_state.SpareEngineDict
 
 
@@ -146,7 +147,7 @@ if uploaded: #Uploaded excel file update
 
 
 
-    SpareEngineUpdate = list(SpareShort)
+    #SpareEngineUpdate = list(SpareShort)
 
   
     col5, col6 = st.columns(2)
@@ -158,27 +159,29 @@ if uploaded: #Uploaded excel file update
     #    Spare1.append((msn, "Eng2", rec["Eng2"]))
 
    
-    if "MSN1" not in st.session_state:
-        st.session_state.MSN1 = []
+    
 
-    MSN1 = st.session_state.MSN1
+    MSN1 = []
 
-    if (len(listShort)%2 == 0):
-        for msn, rec in First[-2:]:     
-            MSN1.append(msn)  # ADDing the tail every 2 MSN added
+    if (len(listShort) % 2 == 0) and len(First) >= 2:
+    
+        msn1, rec1 = First[-2]
+        msn2, rec2 = First[-1]    
 
-            Spare1.append((msn, "Eng1", rec["Eng1"]))
-            Spare1.append((msn, "Eng2", rec["Eng2"]))
 
-            ID = "ID"
+        spare_id = f"ID{len(listShort)//2}"
 
-        if len(MSN1) == 2:
-                
-            NewSpare = addSpare(MSN1[0], MSN1[1], ID + str(len(listShort)/2))  # or increment ID
-            SpareEngineUpdate.append(NewSpare)
-            
-            MSN1 = []  
+        #MSN1.append(msn)  # ADDing the tail every 2 MSN added
+        if spare_id not in st.session_state.SpareEngineList:
+            st.session_state.SpareEngineList[spare_id] = (msn1, msn2)
 
+            Spare1.append((msn1, "Eng1", rec1["Eng1"]))
+            Spare1.append((msn1, "Eng2", rec1["Eng2"]))
+            Spare1.append((msn2, "Eng1", rec2["Eng1"]))
+            Spare1.append((msn2, "Eng2", rec2["Eng2"]))
+       
+
+        
             
 
     spare_options = SpareEngineUpdate or ["-- No spares available --"]
@@ -186,6 +189,7 @@ if uploaded: #Uploaded excel file update
     col12, col22, = st.columns(2)
     
    
+    SpareEngineUpdate = list(st.session_state.SpareEngineList.keys())
 
     with col5:
         selected_msn = st.selectbox(
@@ -196,7 +200,7 @@ if uploaded: #Uploaded excel file update
 
         
         selected_spare = st.selectbox("Select Spare", 
-        options=list(SpareEngineUpdate),
+        options=SpareEngineUpdate,
         index=0 if msn_list else None)
 
 
