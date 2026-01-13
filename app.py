@@ -422,7 +422,7 @@ if uploaded: #Uploaded excel file update
             st.write("Spare1 preview:", Spare1Short)
 
             #index = find_min_owner(Spare1, "FirstVisit")
-            remaining = determineOffset(dictPurpose.get(ShopVisitPurpose), listShort, Spare1)
+            remaining = determineOffset(dictPurpose.get(ShopVisitPurpose), listShort, Spare1Short)
 
             st.success(remaining)
             st.write("Spare1 preview:", listShort)
