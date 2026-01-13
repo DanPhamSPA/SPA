@@ -177,10 +177,10 @@ if uploaded: #Uploaded excel file update
         if spare_id not in st.session_state.SpareEngineList:
             st.session_state.SpareEngineList[spare_id] = (msn1, msn2)
 
-            Spare1.append((msn1, "Eng1", rec1["Eng1"]))
-            Spare1.append((msn1, "Eng2", rec1["Eng2"]))
-            Spare1.append((msn2, "Eng1", rec2["Eng1"]))
-            Spare1.append((msn2, "Eng2", rec2["Eng2"]))
+            Spare1.append((msn1, "Eng1", rec1[0]))
+            Spare1.append((msn1, "Eng2", rec1[1]))
+            Spare1.append((msn2, "Eng1", rec2[0]))
+            Spare1.append((msn2, "Eng2", rec2[1]))
        
 
         
