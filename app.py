@@ -243,7 +243,7 @@ if uploaded: #Uploaded excel file update
                
                 rangeSchedule(selected_msn, monthS, yearS, monthE, yearE, listShort, ws, cycle_plan, eng) 
 
-                st.success("Automatic Mode updated")
+                st.success("Automatic Mode updated" + str(SpareEngineUpdate))
 
 
 
