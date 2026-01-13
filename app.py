@@ -39,14 +39,14 @@ if uploaded: #Uploaded excel file update
     sheet = st.selectbox("Select sheet", wb.sheetnames)
     ws = wb[sheet]
 
-    #if "ListAirCraft" not in st.session_state:
-        #st.session_state.ListAirCraft = {} 
+    if "ListAirCraft" not in st.session_state:
+        st.session_state.ListAirCraft = {} 
     listShort = st.session_state.ListAirCraft
 
 
 
-    #if "SpareEngineList" not in st.session_state:
-    #    st.session_state.ListSpare = []
+    if "SpareEngineList" not in st.session_state:
+        st.session_state.ListSpare = {}
 
     st.subheader("Current Status")
     
