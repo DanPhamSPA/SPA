@@ -367,7 +367,7 @@ if uploaded: #Uploaded excel file update
                 updateVisit(selected_msn, listShort, ListInputForecast, SetFactor, selected_date, eng)
 
                 
-                st.success("MSN " + str(listShort.get(selected_msn)) + " forecast date Successfully added "  )
+                st.write("MSN " + str(listShort.get(selected_msn)) + " forecast date Successfully added "  )
                 st.success(str(StartOp))
                 #st.success("Automatic Stagging mode updated " + str(listShort.get(selected_msn)))
                 #st.success(str(Spare1))
