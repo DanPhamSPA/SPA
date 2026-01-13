@@ -181,7 +181,8 @@ if uploaded: #Uploaded excel file update
         )
 
         
-        selected_spare = st.selectbox("Select Spare", options=SpareEngineUpdate)
+        selected_spare = st.selectbox("Select Spare", options=SpareEngineUpdate,
+        index=0 if msn_list else None)
         #st.success("Plan applied (replace TODO with your function).")
     
     with col6:
