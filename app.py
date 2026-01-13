@@ -143,7 +143,7 @@ if uploaded: #Uploaded excel file update
 
     msn_list = list(st.session_state.ListAirCraft.keys())
     if "SpareEngineList" not in st.session_state:
-        st.session_state.SpareEngineList = []
+        st.session_state.SpareEngineList = {}
     
     
 
