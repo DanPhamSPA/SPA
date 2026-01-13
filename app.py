@@ -178,7 +178,7 @@ if uploaded: #Uploaded excel file update
         selected_Spare= st.selectbox(
         "Select Spare",
          options=SpareList,
-        index=0 if SpareList else None
+        index=0 if SpareList else  ["-- No MSN available --"]
         )
         #st.success("Plan applied (replace TODO with your function).")
     
@@ -253,7 +253,9 @@ if uploaded: #Uploaded excel file update
     #Update operation date
    
 
-
+    if not st.session_state.ListAirCraft:
+        st.info("No MSN available.")
+        -st.stop()
     st.write("")
     st.write("")
 
