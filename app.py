@@ -29,6 +29,9 @@ if uploaded: #Uploaded excel file update
         st.session_state.ListAirCraft = {int(k): v for k, v in raw.items()}
 
         #st.session_state.ListAirCraft = load_aircraft_dict()   # optional reset on new file
+    
+    
+    
     if "SpareEngineList" not in st.session_state:
         st.session_state.SpareEngineList = {}
 
@@ -46,8 +49,7 @@ if uploaded: #Uploaded excel file update
 
 
 
-    if "SpareEngineList" not in st.session_state:
-        st.session_state.ListSpare = {}
+    
 
     st.subheader("Current Status")
     
@@ -162,7 +164,7 @@ if uploaded: #Uploaded excel file update
 
         if len(MSN1) == 2:
             NewSpare = addSpare(MSN1[0], MSN1[1], "ID1")  # or increment ID
-            #SpareEngineUpdate.append(NewSpare)
+            SpareEngineUpdate.append(NewSpare)
             MSN1.clear()  
 
 
@@ -179,7 +181,7 @@ if uploaded: #Uploaded excel file update
         )
 
         
-        selected_spare = st.selectbox("Select Spare", options=spare_options)
+        selected_spare = st.selectbox("Select Spare", options=SpareEngineUpdate)
         #st.success("Plan applied (replace TODO with your function).")
     
     with col6:
