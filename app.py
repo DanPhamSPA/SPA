@@ -192,7 +192,7 @@ if uploaded: #Uploaded excel file update
 
         
         selected_spare = st.selectbox("Select Spare", 
-        options=SpareEngineUpdate,
+        options=list(SpareEngineUpdate),
         index=0 if msn_list else None)
 
 
