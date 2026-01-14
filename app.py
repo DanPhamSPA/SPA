@@ -113,11 +113,10 @@ if uploaded: #Uploaded excel file update
             
 
             #print(ListAirCraft)
-            print(str(address) + "Added New")
-            add_msn_and_generate_spare(msn)
+            
             editExcel(address, newEntry, TailAdd, ws, st.session_state.ListAirCraft, EngineSerial)
             #st.write("Updated aircraft dict:", st.session_state.ListAirCraft)
-
+            add_msn_and_generate_spare(msn)
             #Updated file 
             
             
@@ -125,7 +124,7 @@ if uploaded: #Uploaded excel file update
             wb.save(out)
             
             out.seek(0)
-            st.success("MSN " + str(msn) + " Successfully added")
+            st.success("MSN " + str(msn) + " Successfully added" + str(eng) + "Position added")
             st.session_state.excel_bytes = out.getvalue()
             #st.write("Updated file size (bytes):", len(st.session_state.updated_excel)) 
            
@@ -135,6 +134,8 @@ if uploaded: #Uploaded excel file update
 
     with b2:
         if st.button("Clean aircraft list"):
+
+            
             terminate_list()
             st.session_state.ListAirCraft = {} ##Key 
             st.session_state.SpareEngineDict = {}   # reset list
