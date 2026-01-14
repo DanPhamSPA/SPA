@@ -119,27 +119,27 @@ if uploaded: #Uploaded excel file update
 
            
             # e.g. writeSchedule(month, year, cycle_plan, ws, msn, eng, ListAirCraft)
-            address = getTail(st.session_state.ListAirCraft)
+           
             TailAdd = msn
-
-            newEntry = addNewEngine(TailAdd, "Eng1", "Eng2") 
-            st.session_state.ListAirCraft.update(newEntry)
-            save_aircraft_dict(st.session_state.ListAirCraft)
-            
+            if TailAdd not in listShort:
+                newEntry = addNewEngine(TailAdd, "Eng1", "Eng2") 
+                st.session_state.ListAirCraft.update(newEntry)
+                save_aircraft_dict(st.session_state.ListAirCraft)
+                address = getTail(st.session_state.ListAirCraft)
 
             #print(ListAirCraft)
-            if msn not in listShort:
+            
                 editExcel(address, newEntry, TailAdd, ws, st.session_state.ListAirCraft, EngineSerial)
             else: 
-                r = row_for(msn, eng, listShort)
+                i = msn_index(TailAdd, listShort)
+                address = ROOT_ROW + i * 4
 
-                # Update StartOperation in dict (example)
-                listShort[msn]["StartOperation"] = selected_date
+                # Only update what changed (example StartOperation)
+                listShort[TailAdd]["StartOperation"] = selected_date
+                save_aircraft_dict(listShort)
 
-                # Update StartOperation in Excel (CHANGE "E" to your actual column)
-                ws[f"E{r}"] = selected_date
-
-                st.info(f"MSN {msn} already exists — updated only (no new rows).")
+                # Update Excel cell(s) ONLY (don’t call editExcel)
+                ws[f"E{address}"] = selected_date  # <-- change E to your StartOperation column
 
 
             #st.write("Updated aircraft dict:", st.session_state.ListAirCraft)
