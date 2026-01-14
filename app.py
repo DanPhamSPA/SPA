@@ -4,7 +4,7 @@ from io import BytesIO
 from engine_lib import load_aircraft_dict, save_aircraft_dict, terminate_list
 
 from openpyxl import load_workbook
-from engine_lib import addNewEngine, getEngine, getAircraft, editExcel, getCell, addSchedule, getTail, rangeSchedule
+from engine_lib import addNewEngine, getEngine, getAircraft, editExcel, getCell, addSchedule, getTail, rangeSchedule, msn_index
 from engine_lib import PlanShopDate, PlanSchedule, row_for, cleanSchedule, getVisit, updateVisit, find_min_owner, determineOffset
 
 from ExcelRule import RedFillCell, configureFormat
@@ -14,6 +14,21 @@ import os
 from datetime import date
 SPARE_FACTOR = 2
 CYCLE_PER_DAY = 8
+ROOT_ROW = 10          # <-- set to your real first block row
+ROWS_PER_MSN = 4
+
+
+def msn_index(msn: int, aircraft_dict: dict) -> int:
+    return list(aircraft_dict.keys()).index(msn)
+
+def row_for(msn: int, engine: int, aircraft_dict: dict) -> int:
+    i = msn_index(msn, aircraft_dict)
+    block_start = ROOT_ROW + i * ROWS_PER_MSN
+    if engine == "Eng1":
+        return block_start
+    elif engine == "Eng2":
+        return block_start + 1
+    raise ValueError("engine must be 1 or 2")
 
 
 def add_msn_and_generate_spare(msn: int):
@@ -113,8 +128,20 @@ if uploaded: #Uploaded excel file update
             
 
             #print(ListAirCraft)
-            
-            editExcel(address, newEntry, TailAdd, ws, st.session_state.ListAirCraft, EngineSerial)
+            if msn not in listShort:
+                editExcel(address, newEntry, TailAdd, ws, st.session_state.ListAirCraft, EngineSerial)
+            else: 
+                r = row_for(msn, eng, listShort)
+
+                # Update StartOperation in dict (example)
+                listShort[msn]["StartOperation"] = selected_date
+
+                # Update StartOperation in Excel (CHANGE "E" to your actual column)
+                ws[f"E{r}"] = selected_date
+
+                st.info(f"MSN {msn} already exists — updated only (no new rows).")
+
+
             #st.write("Updated aircraft dict:", st.session_state.ListAirCraft)
             add_msn_and_generate_spare(msn)
             #Updated file 
@@ -135,7 +162,7 @@ if uploaded: #Uploaded excel file update
     with b2:
         if st.button("Clean aircraft list"):
 
-            
+
             terminate_list()
             st.session_state.ListAirCraft = {} ##Key 
             st.session_state.SpareEngineDict = {}   # reset list
