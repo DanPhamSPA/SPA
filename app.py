@@ -162,21 +162,23 @@ if uploaded: #Uploaded excel file update
     with b2:
         if st.button("Clean aircraft list"):
 
-
+              
             terminate_list()
             st.session_state.ListAirCraft = {} ##Key 
             st.session_state.SpareEngineDict = {}   # reset list
+            st.session_state.pop("excel_bytes", None)
+            st.session_state.pop("upload_name", None)
+            
             st.success("Spare list cleared")
-            st.rerun()
             st.success("Successfully clean aircraft list")
+            st.rerun()
 
-
-        out = BytesIO()
-        wb.save(out)
+            out = BytesIO()
+            wb.save(out)
         
-        out.seek(0)
-        #st.success("MSN " + str(msn) + " Successfully added")
-        st.session_state.excel_bytes = out.getvalue()
+            out.seek(0)
+            #st.success("MSN " + str(msn) + " Successfully added")
+            st.session_state.excel_bytes = out.getvalue()
 
     
     st.write("")
