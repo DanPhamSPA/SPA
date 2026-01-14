@@ -131,15 +131,14 @@ if uploaded: #Uploaded excel file update
             
                 editExcel(address, newEntry, TailAdd, ws, st.session_state.ListAirCraft, EngineSerial)
             else: 
-                i = msn_index(TailAdd, listShort)
-                address = ROOT_ROW + i * 4
+             
 
                 # Only update what changed (example StartOperation)
-                listShort[TailAdd]["StartOperation"] = selected_date
+                st.session_state.ListAirCraft[TailAdd]["StartOperation"] = selected_date
                 save_aircraft_dict(listShort)
 
                 # Update Excel cell(s) ONLY (don’t call editExcel)
-                ws[f"E{address}"] = selected_date  # <-- change E to your StartOperation column
+                #ws[f"E{address}"] = selected_date  # <-- change E to your StartOperation column
 
 
             #st.write("Updated aircraft dict:", st.session_state.ListAirCraft)
