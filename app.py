@@ -119,17 +119,18 @@ if uploaded: #Uploaded excel file update
 
            
             # e.g. writeSchedule(month, year, cycle_plan, ws, msn, eng, ListAirCraft)
-           
+            address = getTail(st.session_state.ListAirCraft)
+
             TailAdd = msn
             if TailAdd not in listShort:
                 newEntry = addNewEngine(TailAdd, "Eng1", "Eng2") 
                 st.session_state.ListAirCraft.update(newEntry)
+                editExcel(address, newEntry, TailAdd, ws, st.session_state.ListAirCraft, EngineSerial)
                 save_aircraft_dict(st.session_state.ListAirCraft)
-                address = getTail(st.session_state.ListAirCraft)
-
+                
             #print(ListAirCraft)
             
-                editExcel(address, newEntry, TailAdd, ws, st.session_state.ListAirCraft, EngineSerial)
+                
             else: 
              
 
